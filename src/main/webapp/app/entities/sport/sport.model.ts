@@ -6,6 +6,7 @@ export class Sport implements BaseEntity {
         public title?: string,
         public weatherRequired?: BaseEntity,
         public placeLists?: BaseEntity[],
+        public personLists?: BaseEntity[],
     ) {
     }
 }

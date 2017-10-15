@@ -1,7 +1,6 @@
 package fr.istic.projet.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -12,10 +11,8 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * Task entity.
- * @author The JHipster team.
+ * A Sport.
  */
-@ApiModel(description = "Task entity. @author The JHipster team.")
 @Entity
 @Table(name = "sport")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -43,7 +40,7 @@ public class Sport implements Serializable {
     @ManyToMany(mappedBy = "sportLists")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Person> placeLists = new HashSet<>();
+    private Set<Person> personLists = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -105,29 +102,29 @@ public class Sport implements Serializable {
         this.placeLists = places;
     }
 
-    public Set<Person> getPlaceLists() {
-        return placeLists;
+    public Set<Person> getPersonLists() {
+        return personLists;
     }
 
-    public Sport placeLists(Set<Person> people) {
-        this.placeLists = people;
+    public Sport personLists(Set<Person> people) {
+        this.personLists = people;
         return this;
     }
 
-    public Sport addPlaceList(Person person) {
-        this.placeLists.add(person);
+    public Sport addPersonList(Person person) {
+        this.personLists.add(person);
         person.getSportLists().add(this);
         return this;
     }
 
-    public Sport removePlaceList(Person person) {
-        this.placeLists.remove(person);
+    public Sport removePersonList(Person person) {
+        this.personLists.remove(person);
         person.getSportLists().remove(this);
         return this;
     }
 
-    public void setPlaceLists(Set<Person> people) {
-        this.placeLists = people;
+    public void setPersonLists(Set<Person> people) {
+        this.personLists = people;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

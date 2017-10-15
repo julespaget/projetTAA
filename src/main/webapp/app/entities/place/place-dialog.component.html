@@ -19,15 +19,8 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label" for="field_emplacement">Emplacement</label>
-            <select class="form-control" id="field_emplacement" name="emplacement" [(ngModel)]="place.emplacement">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="locationOption.id === place.emplacement?.id ? place.emplacement : locationOption" *ngFor="let locationOption of emplacements; trackBy: trackLocationById">{{locationOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" for="field_location">Location</label>
-            <select class="form-control" id="field_location" name="location" [(ngModel)]="place.location" >
+            <select class="form-control" id="field_location" name="location" [(ngModel)]="place.location">
                 <option [ngValue]="null"></option>
                 <option [ngValue]="locationOption.id === place.location?.id ? place.location : locationOption" *ngFor="let locationOption of locations; trackBy: trackLocationById">{{locationOption.id}}</option>
             </select>

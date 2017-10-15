@@ -18,7 +18,6 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Nom</span></th>
-            <th><span>Emplacement</span></th>
             <th><span>Location</span></th>
             <th><span>Weather</span></th>
             <th></th>
@@ -28,11 +27,6 @@
             <tr *ngFor="let place of places ;trackBy: trackId">
                 <td><a [routerLink]="['../place', place.id ]">{{place.id}}</a></td>
                 <td>{{place.nom}}</td>
-                <td>
-                    <div *ngIf="place.emplacement">
-                        <a [routerLink]="['../location', place.emplacement?.id ]" >{{place.emplacement?.id}}</a>
-                    </div>
-                </td>
                 <td>
                     <div *ngIf="place.location">
                         <a [routerLink]="['../location', place.location?.id ]" >{{place.location?.id}}</a>

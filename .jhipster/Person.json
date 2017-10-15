@@ -9,7 +9,7 @@
         },
         {
             "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "placeList",
+            "otherEntityRelationshipName": "personList",
             "relationshipName": "sportList",
             "otherEntityName": "sport",
             "otherEntityField": "id",

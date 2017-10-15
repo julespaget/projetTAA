@@ -147,13 +147,13 @@ public class Person implements Serializable {
 
     public Person addSportList(Sport sport) {
         this.sportLists.add(sport);
-        sport.getPlaceLists().add(this);
+        sport.getPersonLists().add(this);
         return this;
     }
 
     public Person removeSportList(Sport sport) {
         this.sportLists.remove(sport);
-        sport.getPlaceLists().remove(this);
+        sport.getPersonLists().remove(this);
         return this;
     }
 

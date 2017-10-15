@@ -29,9 +29,6 @@ public class Place implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Location emplacement;
-
-    @ManyToOne
     private Location location;
 
     @ManyToOne
@@ -62,19 +59,6 @@ public class Place implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public Location getEmplacement() {
-        return emplacement;
-    }
-
-    public Place emplacement(Location location) {
-        this.emplacement = location;
-        return this;
-    }
-
-    public void setEmplacement(Location location) {
-        this.emplacement = location;
     }
 
     public Location getLocation() {

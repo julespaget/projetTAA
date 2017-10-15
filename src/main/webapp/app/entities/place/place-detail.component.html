@@ -8,12 +8,6 @@
         <dd>
             <span>{{place.nom}}</span>
         </dd>
-        <dt><span>Emplacement</span></dt>
-        <dd>
-            <div *ngIf="place.emplacement">
-                <a [routerLink]="['/location', place.emplacement?.id]">{{place.emplacement?.id}}</a>
-            </div>
-        </dd>
         <dt><span>Location</span></dt>
         <dd>
             <div *ngIf="place.location">

@@ -37,7 +37,6 @@ describe('Place e2e test', () => {
         placeComponentsPage.clickOnCreateButton();
         placeDialogPage.setNomInput('nom');
         expect(placeDialogPage.getNomInput()).toMatch('nom');
-        placeDialogPage.emplacementSelectLastOption();
         placeDialogPage.locationSelectLastOption();
         placeDialogPage.weatherSelectLastOption();
         placeDialogPage.save();
@@ -67,7 +66,6 @@ export class PlaceDialogPage {
     saveButton = element(by.css('.modal-footer .btn.btn-primary'));
     closeButton = element(by.css('button.close'));
     nomInput = element(by.css('input#field_nom'));
-    emplacementSelect = element(by.css('select#field_emplacement'));
     locationSelect = element(by.css('select#field_location'));
     weatherSelect = element(by.css('select#field_weather'));
 
@@ -81,22 +79,6 @@ export class PlaceDialogPage {
 
     getNomInput = function () {
         return this.nomInput.getAttribute('value');
-    }
-
-    emplacementSelectLastOption = function () {
-        this.emplacementSelect.all(by.tagName('option')).last().click();
-    }
-
-    emplacementSelectOption = function (option) {
-        this.emplacementSelect.sendKeys(option);
-    }
-
-    getEmplacementSelect = function () {
-        return this.emplacementSelect;
-    }
-
-    getEmplacementSelectedOption = function () {
-        return this.emplacementSelect.element(by.css('option:checked')).getText();
     }
 
     locationSelectLastOption = function () {

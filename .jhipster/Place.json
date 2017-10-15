@@ -3,17 +3,11 @@
     "relationships": [
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "emplacement",
+            "relationshipName": "location",
             "otherEntityName": "location",
             "otherEntityField": "id",
             "ownerSide": true,
             "otherEntityRelationshipName": "place"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "location",
-            "otherEntityName": "location",
-            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",

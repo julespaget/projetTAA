@@ -23,8 +23,6 @@ export class PlaceDialogComponent implements OnInit {
     place: Place;
     isSaving: boolean;
 
-    emplacements: Location[];
-
     locations: Location[];
 
     weathers: Weather[];
@@ -47,18 +45,16 @@ export class PlaceDialogComponent implements OnInit {
         this.locationService
             .query({filter: 'place-is-null'})
             .subscribe((res: ResponseWrapper) => {
-                if (!this.place.emplacement || !this.place.emplacement.id) {
-                    this.emplacements = res.json;
+                if (!this.place.location || !this.place.location.id) {
+                    this.locations = res.json;
                 } else {
                     this.locationService
-                        .find(this.place.emplacement.id)
+                        .find(this.place.location.id)
                         .subscribe((subRes: Location) => {
-                            this.emplacements = [subRes].concat(res.json);
+                            this.locations = [subRes].concat(res.json);
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));
                 }
             }, (res: ResponseWrapper) => this.onError(res.json));
-        this.locationService.query()
-            .subscribe((res: ResponseWrapper) => { this.locations = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.weatherService.query()
             .subscribe((res: ResponseWrapper) => { this.weathers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.sportService.query()

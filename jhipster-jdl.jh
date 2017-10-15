@@ -1,16 +1,11 @@
-// an ignored comment
+
 entity Location {
 	latitude Double required,
     longitude Double required
 }
 
-/**
- * Task entity.
- * @author The JHipster team.
- */
 entity Sport {
-	title String,
-	id Long
+	title String
 }
 
 entity Place{
@@ -44,19 +39,17 @@ enum Ternary {
     YES, NO, IRRELEVANT
 }
 
-// defining multiple oneToOne relationships
 relationship OneToOne {
-	Place{emplacement} to Location 
+	Place{location} to Location 
 }
 
 relationship ManyToMany {
-	Person{sportList} to Sport{placeList},
+	Person{sportList} to Sport{personList},
     Sport{placeList} to Place{sportList}
 }
 
 relationship ManyToOne {
-	Place{location} to Location,
 	Person{currentPlace} to Place,
-    	Place{weather} to Weather,
+    Place{weather} to Weather,
    	Sport{weatherRequired} to WeatherRequirements
 }

@@ -17,7 +17,7 @@
         },
         {
             "relationshipType": "many-to-many",
-            "relationshipName": "placeList",
+            "relationshipName": "personList",
             "otherEntityName": "person",
             "ownerSide": false,
             "otherEntityRelationshipName": "sportList"
@@ -30,7 +30,6 @@
         }
     ],
     "changelogDate": "20171015122929",
-    "javadoc": "Task entity.\n@author The JHipster team.",
     "entityTableName": "sport",
     "dto": "no",
     "pagination": "no",

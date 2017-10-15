@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Sport.
+    -->
+    <changeSet id="20171015122929-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="weather_required_id"
+                                 baseTableName="sport"
+                                 constraintName="fk_sport_weather_required_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="weather_requirements"/>
+
+        <addForeignKeyConstraint baseColumnNames="sports_id"
+                                 baseTableName="sport_place_list"
+                                 constraintName="fk_sport_place_list_sports_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sport"/>
+        <addForeignKeyConstraint baseColumnNames="place_lists_id"
+                                 baseTableName="sport_place_list"
+                                 constraintName="fk_sport_place_list_place_lists_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="place"/>
+        
+    </changeSet>
+</databaseChangeLog>

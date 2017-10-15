@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "temperature",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "windSpeed",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "rain",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "waveHeight",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20171015122932",
+    "entityTableName": "weather",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

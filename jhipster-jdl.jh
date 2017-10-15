@@ -1,0 +1,62 @@
+// an ignored comment
+entity Location {
+	latitude Double required,
+    longitude Double required
+}
+
+/**
+ * Task entity.
+ * @author The JHipster team.
+ */
+entity Sport {
+	title String,
+	id Long
+}
+
+entity Place{
+	nom String
+}
+
+entity Person {
+	firstName String,
+	lastName String,
+	email String,
+	phoneNumber String,
+	birthDate ZonedDateTime
+}
+
+entity Weather {
+	temperature Double,
+    windSpeed Double,
+    rain Boolean,
+    waveHeight Double
+}
+
+entity WeatherRequirements{
+	temperatureMin Double,
+    temperatureMax Double,
+    windSpeedMin Double,
+    windSpeedMax Double,
+    rain Ternary
+}
+
+enum Ternary {
+    YES, NO, IRRELEVANT
+}
+
+// defining multiple oneToOne relationships
+relationship OneToOne {
+	Place{emplacement} to Location 
+}
+
+relationship ManyToMany {
+	Person{sportList} to Sport{placeList},
+    Sport{placeList} to Place{sportList}
+}
+
+relationship ManyToOne {
+	Place{location} to Location,
+	Person{currentPlace} to Place,
+    	Place{weather} to Weather,
+   	Sport{weatherRequired} to WeatherRequirements
+}

@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "temperatureMin",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "temperatureMax",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "windSpeedMin",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "windSpeedMax",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "rain",
+            "fieldType": "Ternary",
+            "fieldValues": "YES,NO,IRRELEVANT"
+        }
+    ],
+    "changelogDate": "20171015122933",
+    "entityTableName": "weather_requirements",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

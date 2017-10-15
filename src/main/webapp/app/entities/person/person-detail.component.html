@@ -1,0 +1,53 @@
+
+<div *ngIf="person">
+    <h2><span>Person</span> {{person.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>First Name</span></dt>
+        <dd>
+            <span>{{person.firstName}}</span>
+        </dd>
+        <dt><span>Last Name</span></dt>
+        <dd>
+            <span>{{person.lastName}}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+            <span>{{person.email}}</span>
+        </dd>
+        <dt><span>Phone Number</span></dt>
+        <dd>
+            <span>{{person.phoneNumber}}</span>
+        </dd>
+        <dt><span>Birth Date</span></dt>
+        <dd>
+            <span>{{person.birthDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Current Place</span></dt>
+        <dd>
+            <div *ngIf="person.currentPlace">
+                <a [routerLink]="['/place', person.currentPlace?.id]">{{person.currentPlace?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Sport List</span></dt>
+        <dd>
+            <span *ngFor="let sportList of person.sportLists; let last = last">
+                <a [routerLink]="['/sport', sportList?.id ]">{{sportList.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'person/'+ person.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

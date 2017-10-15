@@ -1,0 +1,43 @@
+
+<div *ngIf="place">
+    <h2><span>Place</span> {{place.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Nom</span></dt>
+        <dd>
+            <span>{{place.nom}}</span>
+        </dd>
+        <dt><span>Emplacement</span></dt>
+        <dd>
+            <div *ngIf="place.emplacement">
+                <a [routerLink]="['/location', place.emplacement?.id]">{{place.emplacement?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Location</span></dt>
+        <dd>
+            <div *ngIf="place.location">
+                <a [routerLink]="['/location', place.location?.id]">{{place.location?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Weather</span></dt>
+        <dd>
+            <div *ngIf="place.weather">
+                <a [routerLink]="['/weather', place.weather?.id]">{{place.weather?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'place/'+ place.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

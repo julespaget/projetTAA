@@ -1,0 +1,90 @@
+// an ignored comment
+/** not an ignored comment */
+entity Location {
+	latitude Double required,
+    longitude Double required
+}
+
+/**
+ * Task entity.
+ * @author The JHipster team.
+ */
+entity Sport {
+	title String
+}
+
+/**
+ * The Employee entity.
+ */
+entity Person {
+	/**
+	* The firstname attribute.
+	*/
+	firstName String,
+	lastName String,
+	email String,
+	phoneNumber String,
+	birthDate ZonedDateTime
+}
+
+entity Weather {
+	temperature Double,
+    windSpeed Double,
+    rain Boolean,
+    waveHeight Double
+}
+
+entity WeatherRequirements{
+	temperatureMin Double,
+    temperatureMax Double,
+    windSpeedMin Double,
+    windSpeedMax Double,
+    rain Ternary
+}
+
+enum Ternary {
+    YES, NO, IRRELEVANT
+}
+
+/**
+*relationship OneToOne {
+*	Country{region} to Region
+*}
+*/
+
+relationship ManyToMany {
+	Person{sportList} to Sport{placeList},
+    Sport{placeList} to Place{sportList}
+}
+
+// defining multiple OneToMany relationships with comments
+/**relationship OneToMany {}
+*/
+
+relationship ManyToOne {
+	Place{location} to Location,
+	Person{currentPlace} to Place,
+    Place{weather} to Weather,
+    Sport{weatherRequired} to WeatherRequirements
+}
+
+// defining multiple oneToOne relationships
+relationship OneToOne {
+	Place{emplacemnet} to Location 
+/**
+	*JobHistory{job} to Job,
+	*JobHistory{department} to Department,
+	*JobHistory{employee} to Employee
+**/
+}
+
+// Set pagination options
+*paginate JobHistory, Employee with infinite-scroll
+*paginate Job with pagination
+
+*dto * with mapstruct
+
+// Set service options to all except few
+*service all with serviceImpl except Employee, Job
+// Set an angular suffix
+*angularSuffix * with mySuffix

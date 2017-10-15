@@ -1,0 +1,37 @@
+
+<div *ngIf="sport">
+    <h2><span>Sport</span> {{sport.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{sport.title}}</span>
+        </dd>
+        <dt><span>Weather Required</span></dt>
+        <dd>
+            <div *ngIf="sport.weatherRequired">
+                <a [routerLink]="['/weather-requirements', sport.weatherRequired?.id]">{{sport.weatherRequired?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Place List</span></dt>
+        <dd>
+            <span *ngFor="let placeList of sport.placeLists; let last = last">
+                <a [routerLink]="['/place', placeList?.id ]">{{placeList.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'sport/'+ sport.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

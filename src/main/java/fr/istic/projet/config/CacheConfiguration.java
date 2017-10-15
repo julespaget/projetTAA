@@ -44,6 +44,15 @@ public class CacheConfiguration {
             cm.createCache(fr.istic.projet.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(fr.istic.projet.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(fr.istic.projet.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Location.class.getName(), jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Sport.class.getName(), jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Sport.class.getName() + ".placeLists", jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Place.class.getName(), jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Place.class.getName() + ".sportLists", jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Person.class.getName(), jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Person.class.getName() + ".sportLists", jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Weather.class.getName(), jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.WeatherRequirements.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

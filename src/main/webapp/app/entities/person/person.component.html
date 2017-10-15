@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span>People</span>
+        <button class="btn btn-primary float-right jh-create-entity create-person" [routerLink]="['/', { outlets: { popup: ['person-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Person
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="people">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>First Name</span></th>
+            <th><span>Last Name</span></th>
+            <th><span>Email</span></th>
+            <th><span>Phone Number</span></th>
+            <th><span>Birth Date</span></th>
+            <th><span>Current Place</span></th>
+            <th><span>Sport List</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let person of people ;trackBy: trackId">
+                <td><a [routerLink]="['../person', person.id ]">{{person.id}}</a></td>
+                <td>{{person.firstName}}</td>
+                <td>{{person.lastName}}</td>
+                <td>{{person.email}}</td>
+                <td>{{person.phoneNumber}}</td>
+                <td>{{person.birthDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="person.currentPlace">
+                        <a [routerLink]="['../place', person.currentPlace?.id ]" >{{person.currentPlace?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <span *ngFor="let sportList of person.sportLists; let last = last">
+                            <a class="form-control-static" [routerLink]="['../sport', sportList?.id ]">{{sportList.id}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../person', person.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'person/'+ person.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'person/'+ person.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

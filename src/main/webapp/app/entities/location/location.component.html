@@ -17,6 +17,7 @@
             <thead>
             <tr>
             <th><span>ID</span></th>
+            <th><span>Name</span></th>
             <th><span>Latitude</span></th>
             <th><span>Longitude</span></th>
             <th></th>
@@ -25,6 +26,7 @@
             <tbody>
             <tr *ngFor="let location of locations ;trackBy: trackId">
                 <td><a [routerLink]="['../location', location.id ]">{{location.id}}</a></td>
+                <td>{{location.name}}</td>
                 <td>{{location.latitude}}</td>
                 <td>{{location.longitude}}</td>
                 <td class="text-right">

@@ -1,5 +1,6 @@
 
 entity Location {
+	name String,
 	latitude Double required,
     longitude Double required
 }

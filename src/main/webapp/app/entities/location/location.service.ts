@@ -6,6 +6,43 @@ import { SERVER_API_URL } from '../../app.constants';
 import { Location } from './location.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, Component } from '@angular/core';
+
+// test de maps avec angular google maps
+import { AgmCoreModule } from '@agm/core';
+
+@Component({
+    selector: 'app-root',
+    styles: [`
+    agm-map {
+      height: 300px;
+    }
+  `],
+    template: `
+  <agm-map [latitude]="lat" [longitude]="lng"></agm-map>
+  `
+})
+export class AppComponent {
+    lat: number = 51.678418;
+    lng: number = 7.809007;
+}
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+        })
+    ],
+    declarations: [ AppComponent ],
+    bootstrap: [ AppComponent ]
+})
+export class AppModule {}
+//______________________________________fin de l'import de l'api google maps
+
+
+
 @Injectable()
 export class LocationService {
 

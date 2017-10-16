@@ -8,7 +8,6 @@
     "node_modules"
   ],
   "dependencies": {
-    "@agm/core": "^1.0.0-beta.1",
     "@angular/common": "4.3.2",
     "@angular/compiler": "4.3.2",
     "@angular/core": "4.3.2",
@@ -108,7 +107,8 @@
     "webpack:prod": "yarn run cleanup && yarn run webpack:prod:main && yarn run clean-www",
     "webpack:test": "yarn run test",
     "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js",
+    "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
+,
     "e2e": "protractor src/test/javascript/protractor.conf.js",
     "postinstall": "webdriver-manager update"
   }

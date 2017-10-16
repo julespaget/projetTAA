@@ -23,6 +23,7 @@ import {
     PageRibbonComponent,
     ErrorComponent
 } from './layouts';
+import {LocComponent} from "./entities/location/location.component";
 
 @NgModule({
     imports: [

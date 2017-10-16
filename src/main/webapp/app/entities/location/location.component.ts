@@ -60,3 +60,13 @@ locations: Location[];
         this.jhiAlertService.error(error.message, null, null);
     }
 }
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './location.component.html'
+})
+export class LocComponent {
+    title: string = 'My first AGM project';
+    lat: number = 51.678418;
+    lng: number = 7.809007;
+}

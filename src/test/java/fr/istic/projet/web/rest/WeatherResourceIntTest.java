@@ -4,6 +4,9 @@ import fr.istic.projet.WeekandgoApp;
 
 import fr.istic.projet.domain.Weather;
 import fr.istic.projet.repository.WeatherRepository;
+import fr.istic.projet.service.WeatherService;
+import fr.istic.projet.service.dto.WeatherDTO;
+import fr.istic.projet.service.mapper.WeatherMapper;
 import fr.istic.projet.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -53,6 +56,12 @@ public class WeatherResourceIntTest {
     private WeatherRepository weatherRepository;
 
     @Autowired
+    private WeatherMapper weatherMapper;
+
+    @Autowired
+    private WeatherService weatherService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -71,7 +80,7 @@ public class WeatherResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final WeatherResource weatherResource = new WeatherResource(weatherRepository);
+        final WeatherResource weatherResource = new WeatherResource(weatherService);
         this.restWeatherMockMvc = MockMvcBuilders.standaloneSetup(weatherResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -104,9 +113,10 @@ public class WeatherResourceIntTest {
         int databaseSizeBeforeCreate = weatherRepository.findAll().size();
 
         // Create the Weather
+        WeatherDTO weatherDTO = weatherMapper.toDto(weather);
         restWeatherMockMvc.perform(post("/api/weathers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(weather)))
+            .content(TestUtil.convertObjectToJsonBytes(weatherDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Weather in the database
@@ -126,11 +136,12 @@ public class WeatherResourceIntTest {
 
         // Create the Weather with an existing ID
         weather.setId(1L);
+        WeatherDTO weatherDTO = weatherMapper.toDto(weather);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restWeatherMockMvc.perform(post("/api/weathers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(weather)))
+            .content(TestUtil.convertObjectToJsonBytes(weatherDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Weather in the database
@@ -194,10 +205,11 @@ public class WeatherResourceIntTest {
             .windSpeed(UPDATED_WIND_SPEED)
             .rain(UPDATED_RAIN)
             .waveHeight(UPDATED_WAVE_HEIGHT);
+        WeatherDTO weatherDTO = weatherMapper.toDto(updatedWeather);
 
         restWeatherMockMvc.perform(put("/api/weathers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedWeather)))
+            .content(TestUtil.convertObjectToJsonBytes(weatherDTO)))
             .andExpect(status().isOk());
 
         // Validate the Weather in the database
@@ -216,11 +228,12 @@ public class WeatherResourceIntTest {
         int databaseSizeBeforeUpdate = weatherRepository.findAll().size();
 
         // Create the Weather
+        WeatherDTO weatherDTO = weatherMapper.toDto(weather);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restWeatherMockMvc.perform(put("/api/weathers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(weather)))
+            .content(TestUtil.convertObjectToJsonBytes(weatherDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Weather in the database
@@ -258,5 +271,28 @@ public class WeatherResourceIntTest {
         assertThat(weather1).isNotEqualTo(weather2);
         weather1.setId(null);
         assertThat(weather1).isNotEqualTo(weather2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(WeatherDTO.class);
+        WeatherDTO weatherDTO1 = new WeatherDTO();
+        weatherDTO1.setId(1L);
+        WeatherDTO weatherDTO2 = new WeatherDTO();
+        assertThat(weatherDTO1).isNotEqualTo(weatherDTO2);
+        weatherDTO2.setId(weatherDTO1.getId());
+        assertThat(weatherDTO1).isEqualTo(weatherDTO2);
+        weatherDTO2.setId(2L);
+        assertThat(weatherDTO1).isNotEqualTo(weatherDTO2);
+        weatherDTO1.setId(null);
+        assertThat(weatherDTO1).isNotEqualTo(weatherDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(weatherMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(weatherMapper.fromId(null)).isNull();
     }
 }

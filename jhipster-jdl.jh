@@ -54,3 +54,7 @@ relationship ManyToOne {
     Place{weather} to Weather,
    	Sport{weatherRequired} to WeatherRequirements
 }
+
+dto * with mapstruct
+
+service all with serviceImpl

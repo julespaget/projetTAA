@@ -40,7 +40,7 @@
     ],
     "changelogDate": "20171015122931",
     "entityTableName": "person",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceImpl"
 }

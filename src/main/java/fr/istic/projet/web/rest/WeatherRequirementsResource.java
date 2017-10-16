@@ -1,10 +1,9 @@
 package fr.istic.projet.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import fr.istic.projet.domain.WeatherRequirements;
-
-import fr.istic.projet.repository.WeatherRequirementsRepository;
+import fr.istic.projet.service.WeatherRequirementsService;
 import fr.istic.projet.web.rest.util.HeaderUtil;
+import fr.istic.projet.service.dto.WeatherRequirementsDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,27 +27,27 @@ public class WeatherRequirementsResource {
 
     private static final String ENTITY_NAME = "weatherRequirements";
 
-    private final WeatherRequirementsRepository weatherRequirementsRepository;
+    private final WeatherRequirementsService weatherRequirementsService;
 
-    public WeatherRequirementsResource(WeatherRequirementsRepository weatherRequirementsRepository) {
-        this.weatherRequirementsRepository = weatherRequirementsRepository;
+    public WeatherRequirementsResource(WeatherRequirementsService weatherRequirementsService) {
+        this.weatherRequirementsService = weatherRequirementsService;
     }
 
     /**
      * POST  /weather-requirements : Create a new weatherRequirements.
      *
-     * @param weatherRequirements the weatherRequirements to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new weatherRequirements, or with status 400 (Bad Request) if the weatherRequirements has already an ID
+     * @param weatherRequirementsDTO the weatherRequirementsDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new weatherRequirementsDTO, or with status 400 (Bad Request) if the weatherRequirements has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/weather-requirements")
     @Timed
-    public ResponseEntity<WeatherRequirements> createWeatherRequirements(@RequestBody WeatherRequirements weatherRequirements) throws URISyntaxException {
-        log.debug("REST request to save WeatherRequirements : {}", weatherRequirements);
-        if (weatherRequirements.getId() != null) {
+    public ResponseEntity<WeatherRequirementsDTO> createWeatherRequirements(@RequestBody WeatherRequirementsDTO weatherRequirementsDTO) throws URISyntaxException {
+        log.debug("REST request to save WeatherRequirements : {}", weatherRequirementsDTO);
+        if (weatherRequirementsDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new weatherRequirements cannot already have an ID")).body(null);
         }
-        WeatherRequirements result = weatherRequirementsRepository.save(weatherRequirements);
+        WeatherRequirementsDTO result = weatherRequirementsService.save(weatherRequirementsDTO);
         return ResponseEntity.created(new URI("/api/weather-requirements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -57,22 +56,22 @@ public class WeatherRequirementsResource {
     /**
      * PUT  /weather-requirements : Updates an existing weatherRequirements.
      *
-     * @param weatherRequirements the weatherRequirements to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated weatherRequirements,
-     * or with status 400 (Bad Request) if the weatherRequirements is not valid,
-     * or with status 500 (Internal Server Error) if the weatherRequirements couldn't be updated
+     * @param weatherRequirementsDTO the weatherRequirementsDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated weatherRequirementsDTO,
+     * or with status 400 (Bad Request) if the weatherRequirementsDTO is not valid,
+     * or with status 500 (Internal Server Error) if the weatherRequirementsDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/weather-requirements")
     @Timed
-    public ResponseEntity<WeatherRequirements> updateWeatherRequirements(@RequestBody WeatherRequirements weatherRequirements) throws URISyntaxException {
-        log.debug("REST request to update WeatherRequirements : {}", weatherRequirements);
-        if (weatherRequirements.getId() == null) {
-            return createWeatherRequirements(weatherRequirements);
+    public ResponseEntity<WeatherRequirementsDTO> updateWeatherRequirements(@RequestBody WeatherRequirementsDTO weatherRequirementsDTO) throws URISyntaxException {
+        log.debug("REST request to update WeatherRequirements : {}", weatherRequirementsDTO);
+        if (weatherRequirementsDTO.getId() == null) {
+            return createWeatherRequirements(weatherRequirementsDTO);
         }
-        WeatherRequirements result = weatherRequirementsRepository.save(weatherRequirements);
+        WeatherRequirementsDTO result = weatherRequirementsService.save(weatherRequirementsDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, weatherRequirements.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, weatherRequirementsDTO.getId().toString()))
             .body(result);
     }
 
@@ -83,36 +82,36 @@ public class WeatherRequirementsResource {
      */
     @GetMapping("/weather-requirements")
     @Timed
-    public List<WeatherRequirements> getAllWeatherRequirements() {
+    public List<WeatherRequirementsDTO> getAllWeatherRequirements() {
         log.debug("REST request to get all WeatherRequirements");
-        return weatherRequirementsRepository.findAll();
+        return weatherRequirementsService.findAll();
         }
 
     /**
      * GET  /weather-requirements/:id : get the "id" weatherRequirements.
      *
-     * @param id the id of the weatherRequirements to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the weatherRequirements, or with status 404 (Not Found)
+     * @param id the id of the weatherRequirementsDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the weatherRequirementsDTO, or with status 404 (Not Found)
      */
     @GetMapping("/weather-requirements/{id}")
     @Timed
-    public ResponseEntity<WeatherRequirements> getWeatherRequirements(@PathVariable Long id) {
+    public ResponseEntity<WeatherRequirementsDTO> getWeatherRequirements(@PathVariable Long id) {
         log.debug("REST request to get WeatherRequirements : {}", id);
-        WeatherRequirements weatherRequirements = weatherRequirementsRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(weatherRequirements));
+        WeatherRequirementsDTO weatherRequirementsDTO = weatherRequirementsService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(weatherRequirementsDTO));
     }
 
     /**
      * DELETE  /weather-requirements/:id : delete the "id" weatherRequirements.
      *
-     * @param id the id of the weatherRequirements to delete
+     * @param id the id of the weatherRequirementsDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/weather-requirements/{id}")
     @Timed
     public ResponseEntity<Void> deleteWeatherRequirements(@PathVariable Long id) {
         log.debug("REST request to delete WeatherRequirements : {}", id);
-        weatherRequirementsRepository.delete(id);
+        weatherRequirementsService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

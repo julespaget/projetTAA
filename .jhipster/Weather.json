@@ -21,7 +21,7 @@
     ],
     "changelogDate": "20171015122932",
     "entityTableName": "weather",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceImpl"
 }

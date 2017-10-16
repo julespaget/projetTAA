@@ -20,9 +20,9 @@
 
         <div class="form-group">
             <label class="form-control-label" for="field_weatherRequired">Weather Required</label>
-            <select class="form-control" id="field_weatherRequired" name="weatherRequired" [(ngModel)]="sport.weatherRequired" >
+            <select class="form-control" id="field_weatherRequired" name="weatherRequired" [(ngModel)]="sport.weatherRequiredId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="weatherRequirementsOption.id === sport.weatherRequired?.id ? sport.weatherRequired : weatherRequirementsOption" *ngFor="let weatherRequirementsOption of weatherrequirements; trackBy: trackWeatherRequirementsById">{{weatherRequirementsOption.id}}</option>
+                <option [ngValue]="weatherRequirementsOption.id" *ngFor="let weatherRequirementsOption of weatherrequirements; trackBy: trackWeatherRequirementsById">{{weatherRequirementsOption.id}}</option>
             </select>
         </div>
         <div class="form-group">

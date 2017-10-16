@@ -28,8 +28,8 @@
                 <td><a [routerLink]="['../sport', sport.id ]">{{sport.id}}</a></td>
                 <td>{{sport.title}}</td>
                 <td>
-                    <div *ngIf="sport.weatherRequired">
-                        <a [routerLink]="['../weather-requirements', sport.weatherRequired?.id ]" >{{sport.weatherRequired?.id}}</a>
+                    <div *ngIf="sport.weatherRequiredId">
+                        <a [routerLink]="['../weather-requirements', sport.weatherRequiredId  ]" >{{sport.weatherRequiredId}}</a>
                     </div>
                 </td>
                 <td>

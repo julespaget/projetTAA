@@ -31,7 +31,7 @@
     ],
     "changelogDate": "20171015122930",
     "entityTableName": "place",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceImpl"
 }

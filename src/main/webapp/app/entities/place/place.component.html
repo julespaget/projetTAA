@@ -28,13 +28,13 @@
                 <td><a [routerLink]="['../place', place.id ]">{{place.id}}</a></td>
                 <td>{{place.nom}}</td>
                 <td>
-                    <div *ngIf="place.location">
-                        <a [routerLink]="['../location', place.location?.id ]" >{{place.location?.id}}</a>
+                    <div *ngIf="place.locationId">
+                        <a [routerLink]="['../location', place.locationId  ]" >{{place.locationId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="place.weather">
-                        <a [routerLink]="['../weather', place.weather?.id ]" >{{place.weather?.id}}</a>
+                    <div *ngIf="place.weatherId">
+                        <a [routerLink]="['../weather', place.weatherId  ]" >{{place.weatherId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

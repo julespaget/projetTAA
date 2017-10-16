@@ -4,6 +4,9 @@ import fr.istic.projet.WeekandgoApp;
 
 import fr.istic.projet.domain.Sport;
 import fr.istic.projet.repository.SportRepository;
+import fr.istic.projet.service.SportService;
+import fr.istic.projet.service.dto.SportDTO;
+import fr.istic.projet.service.mapper.SportMapper;
 import fr.istic.projet.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -44,6 +47,12 @@ public class SportResourceIntTest {
     private SportRepository sportRepository;
 
     @Autowired
+    private SportMapper sportMapper;
+
+    @Autowired
+    private SportService sportService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -62,7 +71,7 @@ public class SportResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final SportResource sportResource = new SportResource(sportRepository);
+        final SportResource sportResource = new SportResource(sportService);
         this.restSportMockMvc = MockMvcBuilders.standaloneSetup(sportResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -92,9 +101,10 @@ public class SportResourceIntTest {
         int databaseSizeBeforeCreate = sportRepository.findAll().size();
 
         // Create the Sport
+        SportDTO sportDTO = sportMapper.toDto(sport);
         restSportMockMvc.perform(post("/api/sports")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(sport)))
+            .content(TestUtil.convertObjectToJsonBytes(sportDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Sport in the database
@@ -111,11 +121,12 @@ public class SportResourceIntTest {
 
         // Create the Sport with an existing ID
         sport.setId(1L);
+        SportDTO sportDTO = sportMapper.toDto(sport);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSportMockMvc.perform(post("/api/sports")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(sport)))
+            .content(TestUtil.convertObjectToJsonBytes(sportDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Sport in the database
@@ -170,10 +181,11 @@ public class SportResourceIntTest {
         Sport updatedSport = sportRepository.findOne(sport.getId());
         updatedSport
             .title(UPDATED_TITLE);
+        SportDTO sportDTO = sportMapper.toDto(updatedSport);
 
         restSportMockMvc.perform(put("/api/sports")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedSport)))
+            .content(TestUtil.convertObjectToJsonBytes(sportDTO)))
             .andExpect(status().isOk());
 
         // Validate the Sport in the database
@@ -189,11 +201,12 @@ public class SportResourceIntTest {
         int databaseSizeBeforeUpdate = sportRepository.findAll().size();
 
         // Create the Sport
+        SportDTO sportDTO = sportMapper.toDto(sport);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restSportMockMvc.perform(put("/api/sports")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(sport)))
+            .content(TestUtil.convertObjectToJsonBytes(sportDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Sport in the database
@@ -231,5 +244,28 @@ public class SportResourceIntTest {
         assertThat(sport1).isNotEqualTo(sport2);
         sport1.setId(null);
         assertThat(sport1).isNotEqualTo(sport2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(SportDTO.class);
+        SportDTO sportDTO1 = new SportDTO();
+        sportDTO1.setId(1L);
+        SportDTO sportDTO2 = new SportDTO();
+        assertThat(sportDTO1).isNotEqualTo(sportDTO2);
+        sportDTO2.setId(sportDTO1.getId());
+        assertThat(sportDTO1).isEqualTo(sportDTO2);
+        sportDTO2.setId(2L);
+        assertThat(sportDTO1).isNotEqualTo(sportDTO2);
+        sportDTO1.setId(null);
+        assertThat(sportDTO1).isNotEqualTo(sportDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(sportMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(sportMapper.fromId(null)).isNull();
     }
 }

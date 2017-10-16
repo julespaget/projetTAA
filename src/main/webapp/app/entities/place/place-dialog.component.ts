@@ -45,11 +45,11 @@ export class PlaceDialogComponent implements OnInit {
         this.locationService
             .query({filter: 'place-is-null'})
             .subscribe((res: ResponseWrapper) => {
-                if (!this.place.location || !this.place.location.id) {
+                if (!this.place.locationId) {
                     this.locations = res.json;
                 } else {
                     this.locationService
-                        .find(this.place.location.id)
+                        .find(this.place.locationId)
                         .subscribe((subRes: Location) => {
                             this.locations = [subRes].concat(res.json);
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));

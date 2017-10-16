@@ -10,8 +10,8 @@
         </dd>
         <dt><span>Weather Required</span></dt>
         <dd>
-            <div *ngIf="sport.weatherRequired">
-                <a [routerLink]="['/weather-requirements', sport.weatherRequired?.id]">{{sport.weatherRequired?.id}}</a>
+            <div *ngIf="sport.weatherRequiredId">
+                <a [routerLink]="['/weather-requirements', sport.weatherRequiredId]">{{sport.weatherRequiredId}}</a>
             </div>
         </dd>
         <dt><span>Place List</span></dt>

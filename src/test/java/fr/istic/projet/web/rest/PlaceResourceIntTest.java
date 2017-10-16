@@ -4,6 +4,9 @@ import fr.istic.projet.WeekandgoApp;
 
 import fr.istic.projet.domain.Place;
 import fr.istic.projet.repository.PlaceRepository;
+import fr.istic.projet.service.PlaceService;
+import fr.istic.projet.service.dto.PlaceDTO;
+import fr.istic.projet.service.mapper.PlaceMapper;
 import fr.istic.projet.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -44,6 +47,12 @@ public class PlaceResourceIntTest {
     private PlaceRepository placeRepository;
 
     @Autowired
+    private PlaceMapper placeMapper;
+
+    @Autowired
+    private PlaceService placeService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -62,7 +71,7 @@ public class PlaceResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PlaceResource placeResource = new PlaceResource(placeRepository);
+        final PlaceResource placeResource = new PlaceResource(placeService);
         this.restPlaceMockMvc = MockMvcBuilders.standaloneSetup(placeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -92,9 +101,10 @@ public class PlaceResourceIntTest {
         int databaseSizeBeforeCreate = placeRepository.findAll().size();
 
         // Create the Place
+        PlaceDTO placeDTO = placeMapper.toDto(place);
         restPlaceMockMvc.perform(post("/api/places")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(place)))
+            .content(TestUtil.convertObjectToJsonBytes(placeDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Place in the database
@@ -111,11 +121,12 @@ public class PlaceResourceIntTest {
 
         // Create the Place with an existing ID
         place.setId(1L);
+        PlaceDTO placeDTO = placeMapper.toDto(place);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPlaceMockMvc.perform(post("/api/places")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(place)))
+            .content(TestUtil.convertObjectToJsonBytes(placeDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Place in the database
@@ -170,10 +181,11 @@ public class PlaceResourceIntTest {
         Place updatedPlace = placeRepository.findOne(place.getId());
         updatedPlace
             .nom(UPDATED_NOM);
+        PlaceDTO placeDTO = placeMapper.toDto(updatedPlace);
 
         restPlaceMockMvc.perform(put("/api/places")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPlace)))
+            .content(TestUtil.convertObjectToJsonBytes(placeDTO)))
             .andExpect(status().isOk());
 
         // Validate the Place in the database
@@ -189,11 +201,12 @@ public class PlaceResourceIntTest {
         int databaseSizeBeforeUpdate = placeRepository.findAll().size();
 
         // Create the Place
+        PlaceDTO placeDTO = placeMapper.toDto(place);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restPlaceMockMvc.perform(put("/api/places")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(place)))
+            .content(TestUtil.convertObjectToJsonBytes(placeDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Place in the database
@@ -231,5 +244,28 @@ public class PlaceResourceIntTest {
         assertThat(place1).isNotEqualTo(place2);
         place1.setId(null);
         assertThat(place1).isNotEqualTo(place2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(PlaceDTO.class);
+        PlaceDTO placeDTO1 = new PlaceDTO();
+        placeDTO1.setId(1L);
+        PlaceDTO placeDTO2 = new PlaceDTO();
+        assertThat(placeDTO1).isNotEqualTo(placeDTO2);
+        placeDTO2.setId(placeDTO1.getId());
+        assertThat(placeDTO1).isEqualTo(placeDTO2);
+        placeDTO2.setId(2L);
+        assertThat(placeDTO1).isNotEqualTo(placeDTO2);
+        placeDTO1.setId(null);
+        assertThat(placeDTO1).isNotEqualTo(placeDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(placeMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(placeMapper.fromId(null)).isNull();
     }
 }

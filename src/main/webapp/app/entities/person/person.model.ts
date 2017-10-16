@@ -8,7 +8,7 @@ export class Person implements BaseEntity {
         public email?: string,
         public phoneNumber?: string,
         public birthDate?: any,
-        public currentPlace?: BaseEntity,
+        public currentPlaceId?: number,
         public sportLists?: BaseEntity[],
     ) {
     }

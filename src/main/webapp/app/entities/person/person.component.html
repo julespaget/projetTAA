@@ -36,8 +36,8 @@
                 <td>{{person.phoneNumber}}</td>
                 <td>{{person.birthDate | date:'medium'}}</td>
                 <td>
-                    <div *ngIf="person.currentPlace">
-                        <a [routerLink]="['../place', person.currentPlace?.id ]" >{{person.currentPlace?.id}}</a>
+                    <div *ngIf="person.currentPlaceId">
+                        <a [routerLink]="['../place', person.currentPlaceId  ]" >{{person.currentPlaceId}}</a>
                     </div>
                 </td>
                 <td>

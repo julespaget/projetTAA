@@ -10,14 +10,14 @@
         </dd>
         <dt><span>Location</span></dt>
         <dd>
-            <div *ngIf="place.location">
-                <a [routerLink]="['/location', place.location?.id]">{{place.location?.id}}</a>
+            <div *ngIf="place.locationId">
+                <a [routerLink]="['/location', place.locationId]">{{place.locationId}}</a>
             </div>
         </dd>
         <dt><span>Weather</span></dt>
         <dd>
-            <div *ngIf="place.weather">
-                <a [routerLink]="['/weather', place.weather?.id]">{{place.weather?.id}}</a>
+            <div *ngIf="place.weatherId">
+                <a [routerLink]="['/weather', place.weatherId]">{{place.weatherId}}</a>
             </div>
         </dd>
     </dl>

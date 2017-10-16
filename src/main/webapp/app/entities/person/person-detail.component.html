@@ -26,8 +26,8 @@
         </dd>
         <dt><span>Current Place</span></dt>
         <dd>
-            <div *ngIf="person.currentPlace">
-                <a [routerLink]="['/place', person.currentPlace?.id]">{{person.currentPlace?.id}}</a>
+            <div *ngIf="person.currentPlaceId">
+                <a [routerLink]="['/place', person.currentPlaceId]">{{person.currentPlaceId}}</a>
             </div>
         </dd>
         <dt><span>Sport List</span></dt>

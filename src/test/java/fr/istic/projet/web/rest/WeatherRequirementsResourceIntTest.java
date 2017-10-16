@@ -4,6 +4,9 @@ import fr.istic.projet.WeekandgoApp;
 
 import fr.istic.projet.domain.WeatherRequirements;
 import fr.istic.projet.repository.WeatherRequirementsRepository;
+import fr.istic.projet.service.WeatherRequirementsService;
+import fr.istic.projet.service.dto.WeatherRequirementsDTO;
+import fr.istic.projet.service.mapper.WeatherRequirementsMapper;
 import fr.istic.projet.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -57,6 +60,12 @@ public class WeatherRequirementsResourceIntTest {
     private WeatherRequirementsRepository weatherRequirementsRepository;
 
     @Autowired
+    private WeatherRequirementsMapper weatherRequirementsMapper;
+
+    @Autowired
+    private WeatherRequirementsService weatherRequirementsService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -75,7 +84,7 @@ public class WeatherRequirementsResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final WeatherRequirementsResource weatherRequirementsResource = new WeatherRequirementsResource(weatherRequirementsRepository);
+        final WeatherRequirementsResource weatherRequirementsResource = new WeatherRequirementsResource(weatherRequirementsService);
         this.restWeatherRequirementsMockMvc = MockMvcBuilders.standaloneSetup(weatherRequirementsResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,9 +118,10 @@ public class WeatherRequirementsResourceIntTest {
         int databaseSizeBeforeCreate = weatherRequirementsRepository.findAll().size();
 
         // Create the WeatherRequirements
+        WeatherRequirementsDTO weatherRequirementsDTO = weatherRequirementsMapper.toDto(weatherRequirements);
         restWeatherRequirementsMockMvc.perform(post("/api/weather-requirements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(weatherRequirements)))
+            .content(TestUtil.convertObjectToJsonBytes(weatherRequirementsDTO)))
             .andExpect(status().isCreated());
 
         // Validate the WeatherRequirements in the database
@@ -132,11 +142,12 @@ public class WeatherRequirementsResourceIntTest {
 
         // Create the WeatherRequirements with an existing ID
         weatherRequirements.setId(1L);
+        WeatherRequirementsDTO weatherRequirementsDTO = weatherRequirementsMapper.toDto(weatherRequirements);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restWeatherRequirementsMockMvc.perform(post("/api/weather-requirements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(weatherRequirements)))
+            .content(TestUtil.convertObjectToJsonBytes(weatherRequirementsDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the WeatherRequirements in the database
@@ -203,10 +214,11 @@ public class WeatherRequirementsResourceIntTest {
             .windSpeedMin(UPDATED_WIND_SPEED_MIN)
             .windSpeedMax(UPDATED_WIND_SPEED_MAX)
             .rain(UPDATED_RAIN);
+        WeatherRequirementsDTO weatherRequirementsDTO = weatherRequirementsMapper.toDto(updatedWeatherRequirements);
 
         restWeatherRequirementsMockMvc.perform(put("/api/weather-requirements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedWeatherRequirements)))
+            .content(TestUtil.convertObjectToJsonBytes(weatherRequirementsDTO)))
             .andExpect(status().isOk());
 
         // Validate the WeatherRequirements in the database
@@ -226,11 +238,12 @@ public class WeatherRequirementsResourceIntTest {
         int databaseSizeBeforeUpdate = weatherRequirementsRepository.findAll().size();
 
         // Create the WeatherRequirements
+        WeatherRequirementsDTO weatherRequirementsDTO = weatherRequirementsMapper.toDto(weatherRequirements);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restWeatherRequirementsMockMvc.perform(put("/api/weather-requirements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(weatherRequirements)))
+            .content(TestUtil.convertObjectToJsonBytes(weatherRequirementsDTO)))
             .andExpect(status().isCreated());
 
         // Validate the WeatherRequirements in the database
@@ -268,5 +281,28 @@ public class WeatherRequirementsResourceIntTest {
         assertThat(weatherRequirements1).isNotEqualTo(weatherRequirements2);
         weatherRequirements1.setId(null);
         assertThat(weatherRequirements1).isNotEqualTo(weatherRequirements2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(WeatherRequirementsDTO.class);
+        WeatherRequirementsDTO weatherRequirementsDTO1 = new WeatherRequirementsDTO();
+        weatherRequirementsDTO1.setId(1L);
+        WeatherRequirementsDTO weatherRequirementsDTO2 = new WeatherRequirementsDTO();
+        assertThat(weatherRequirementsDTO1).isNotEqualTo(weatherRequirementsDTO2);
+        weatherRequirementsDTO2.setId(weatherRequirementsDTO1.getId());
+        assertThat(weatherRequirementsDTO1).isEqualTo(weatherRequirementsDTO2);
+        weatherRequirementsDTO2.setId(2L);
+        assertThat(weatherRequirementsDTO1).isNotEqualTo(weatherRequirementsDTO2);
+        weatherRequirementsDTO1.setId(null);
+        assertThat(weatherRequirementsDTO1).isNotEqualTo(weatherRequirementsDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(weatherRequirementsMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(weatherRequirementsMapper.fromId(null)).isNull();
     }
 }

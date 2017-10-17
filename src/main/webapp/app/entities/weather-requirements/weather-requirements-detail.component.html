@@ -20,9 +20,33 @@
         <dd>
             <span>{{weatherRequirements.windSpeedMax}}</span>
         </dd>
-        <dt><span>Rain</span></dt>
+        <dt><span>Wind Angle Min</span></dt>
         <dd>
-            <span>{{weatherRequirements.rain}}</span>
+            <span>{{weatherRequirements.windAngleMin}}</span>
+        </dd>
+        <dt><span>Wind Angle Max</span></dt>
+        <dd>
+            <span>{{weatherRequirements.windAngleMax}}</span>
+        </dd>
+        <dt><span>Wave Height Min</span></dt>
+        <dd>
+            <span>{{weatherRequirements.waveHeightMin}}</span>
+        </dd>
+        <dt><span>Wave Height Max</span></dt>
+        <dd>
+            <span>{{weatherRequirements.waveHeightMax}}</span>
+        </dd>
+        <dt><span>Precipitation Min</span></dt>
+        <dd>
+            <div *ngIf="weatherRequirements.precipitationMinId">
+                <a [routerLink]="['/precipitation', weatherRequirements.precipitationMinId]">{{weatherRequirements.precipitationMinId}}</a>
+            </div>
+        </dd>
+        <dt><span>Precipitation Max</span></dt>
+        <dd>
+            <div *ngIf="weatherRequirements.precipitationMaxId">
+                <a [routerLink]="['/precipitation', weatherRequirements.precipitationMaxId]">{{weatherRequirements.precipitationMaxId}}</a>
+            </div>
         </dd>
     </dl>
 

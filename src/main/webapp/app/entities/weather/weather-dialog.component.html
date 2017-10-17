@@ -13,6 +13,13 @@
                    [(ngModel)]="weather.id" readonly />
         </div>
         <div class="form-group">
+            <label class="form-control-label" for="field_date">Date</label>
+            <div class="d-flex">
+                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="weather.date"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
             <label class="form-control-label" for="field_temperature">Temperature</label>
             <input type="number" class="form-control" name="temperature" id="field_temperature"
                 [(ngModel)]="weather.temperature"  />
@@ -23,16 +30,38 @@
                 [(ngModel)]="weather.windSpeed"  />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_rain">Rain</label>
-            <input type="checkbox" class="form-control" name="rain" id="field_rain"
-                [(ngModel)]="weather.rain"  />
+            <label class="form-control-label" for="field_windAngle">Wind Angle</label>
+            <input type="number" class="form-control" name="windAngle" id="field_windAngle"
+                [(ngModel)]="weather.windAngle"  />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_waveHeight">Wave Height</label>
             <input type="number" class="form-control" name="waveHeight" id="field_waveHeight"
                 [(ngModel)]="weather.waveHeight"  />
         </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_clouds">Clouds</label>
+            <input type="number" class="form-control" name="clouds" id="field_clouds"
+                [(ngModel)]="weather.clouds"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_pressure">Pressure</label>
+            <input type="number" class="form-control" name="pressure" id="field_pressure"
+                [(ngModel)]="weather.pressure"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_humidity">Humidity</label>
+            <input type="number" class="form-control" name="humidity" id="field_humidity"
+                [(ngModel)]="weather.humidity"  />
+        </div>
 
+        <div class="form-group">
+            <label class="form-control-label" for="field_precipitation">Precipitation</label>
+            <select class="form-control" id="field_precipitation" name="precipitation" [(ngModel)]="weather.precipitationId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="precipitationOption.id" *ngFor="let precipitationOption of precipitations; trackBy: trackPrecipitationById">{{precipitationOption.id}}</option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

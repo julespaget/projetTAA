@@ -38,10 +38,26 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="rain" type="varchar(255)">
+            <column name="wind_angle_min" type="double">
                 <constraints nullable="true" />
             </column>
 
+            <column name="wind_angle_max" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="wave_height_min" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="wave_height_max" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="precipitation_min_id" type="bigint">
+                <constraints unique="true" nullable="true" />
+            </column>            <column name="precipitation_max_id" type="bigint">
+                <constraints unique="true" nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

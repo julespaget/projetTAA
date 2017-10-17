@@ -6,6 +6,7 @@ import { WeekandgoPlaceModule } from './place/place.module';
 import { WeekandgoPersonModule } from './person/person.module';
 import { WeekandgoWeatherModule } from './weather/weather.module';
 import { WeekandgoWeatherRequirementsModule } from './weather-requirements/weather-requirements.module';
+import { WeekandgoPrecipitationModule } from './precipitation/precipitation.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -16,6 +17,7 @@ import { WeekandgoWeatherRequirementsModule } from './weather-requirements/weath
         WeekandgoPersonModule,
         WeekandgoWeatherModule,
         WeekandgoWeatherRequirementsModule,
+        WeekandgoPrecipitationModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

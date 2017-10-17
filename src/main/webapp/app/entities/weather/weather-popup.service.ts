@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 import { Weather } from './weather.model';
 import { WeatherService } from './weather.service';
 
@@ -9,6 +10,7 @@ export class WeatherPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
+        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private weatherService: WeatherService
@@ -26,6 +28,8 @@ export class WeatherPopupService {
 
             if (id) {
                 this.weatherService.find(id).subscribe((weather) => {
+                    weather.date = this.datePipe
+                        .transform(weather.date, 'yyyy-MM-ddTHH:mm:ss');
                     this.ngbModalRef = this.weatherModalRef(component, weather);
                     resolve(this.ngbModalRef);
                 });

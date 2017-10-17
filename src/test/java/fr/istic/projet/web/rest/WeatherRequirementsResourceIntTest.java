@@ -31,7 +31,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import fr.istic.projet.domain.enumeration.Ternary;
 /**
  * Test class for the WeatherRequirementsResource REST controller.
  *
@@ -53,8 +52,17 @@ public class WeatherRequirementsResourceIntTest {
     private static final Double DEFAULT_WIND_SPEED_MAX = 1D;
     private static final Double UPDATED_WIND_SPEED_MAX = 2D;
 
-    private static final Ternary DEFAULT_RAIN = Ternary.YES;
-    private static final Ternary UPDATED_RAIN = Ternary.NO;
+    private static final Double DEFAULT_WIND_ANGLE_MIN = 1D;
+    private static final Double UPDATED_WIND_ANGLE_MIN = 2D;
+
+    private static final Double DEFAULT_WIND_ANGLE_MAX = 1D;
+    private static final Double UPDATED_WIND_ANGLE_MAX = 2D;
+
+    private static final Double DEFAULT_WAVE_HEIGHT_MIN = 1D;
+    private static final Double UPDATED_WAVE_HEIGHT_MIN = 2D;
+
+    private static final Double DEFAULT_WAVE_HEIGHT_MAX = 1D;
+    private static final Double UPDATED_WAVE_HEIGHT_MAX = 2D;
 
     @Autowired
     private WeatherRequirementsRepository weatherRequirementsRepository;
@@ -103,7 +111,10 @@ public class WeatherRequirementsResourceIntTest {
             .temperatureMax(DEFAULT_TEMPERATURE_MAX)
             .windSpeedMin(DEFAULT_WIND_SPEED_MIN)
             .windSpeedMax(DEFAULT_WIND_SPEED_MAX)
-            .rain(DEFAULT_RAIN);
+            .windAngleMin(DEFAULT_WIND_ANGLE_MIN)
+            .windAngleMax(DEFAULT_WIND_ANGLE_MAX)
+            .waveHeightMin(DEFAULT_WAVE_HEIGHT_MIN)
+            .waveHeightMax(DEFAULT_WAVE_HEIGHT_MAX);
         return weatherRequirements;
     }
 
@@ -132,7 +143,10 @@ public class WeatherRequirementsResourceIntTest {
         assertThat(testWeatherRequirements.getTemperatureMax()).isEqualTo(DEFAULT_TEMPERATURE_MAX);
         assertThat(testWeatherRequirements.getWindSpeedMin()).isEqualTo(DEFAULT_WIND_SPEED_MIN);
         assertThat(testWeatherRequirements.getWindSpeedMax()).isEqualTo(DEFAULT_WIND_SPEED_MAX);
-        assertThat(testWeatherRequirements.getRain()).isEqualTo(DEFAULT_RAIN);
+        assertThat(testWeatherRequirements.getWindAngleMin()).isEqualTo(DEFAULT_WIND_ANGLE_MIN);
+        assertThat(testWeatherRequirements.getWindAngleMax()).isEqualTo(DEFAULT_WIND_ANGLE_MAX);
+        assertThat(testWeatherRequirements.getWaveHeightMin()).isEqualTo(DEFAULT_WAVE_HEIGHT_MIN);
+        assertThat(testWeatherRequirements.getWaveHeightMax()).isEqualTo(DEFAULT_WAVE_HEIGHT_MAX);
     }
 
     @Test
@@ -170,7 +184,10 @@ public class WeatherRequirementsResourceIntTest {
             .andExpect(jsonPath("$.[*].temperatureMax").value(hasItem(DEFAULT_TEMPERATURE_MAX.doubleValue())))
             .andExpect(jsonPath("$.[*].windSpeedMin").value(hasItem(DEFAULT_WIND_SPEED_MIN.doubleValue())))
             .andExpect(jsonPath("$.[*].windSpeedMax").value(hasItem(DEFAULT_WIND_SPEED_MAX.doubleValue())))
-            .andExpect(jsonPath("$.[*].rain").value(hasItem(DEFAULT_RAIN.toString())));
+            .andExpect(jsonPath("$.[*].windAngleMin").value(hasItem(DEFAULT_WIND_ANGLE_MIN.doubleValue())))
+            .andExpect(jsonPath("$.[*].windAngleMax").value(hasItem(DEFAULT_WIND_ANGLE_MAX.doubleValue())))
+            .andExpect(jsonPath("$.[*].waveHeightMin").value(hasItem(DEFAULT_WAVE_HEIGHT_MIN.doubleValue())))
+            .andExpect(jsonPath("$.[*].waveHeightMax").value(hasItem(DEFAULT_WAVE_HEIGHT_MAX.doubleValue())));
     }
 
     @Test
@@ -188,7 +205,10 @@ public class WeatherRequirementsResourceIntTest {
             .andExpect(jsonPath("$.temperatureMax").value(DEFAULT_TEMPERATURE_MAX.doubleValue()))
             .andExpect(jsonPath("$.windSpeedMin").value(DEFAULT_WIND_SPEED_MIN.doubleValue()))
             .andExpect(jsonPath("$.windSpeedMax").value(DEFAULT_WIND_SPEED_MAX.doubleValue()))
-            .andExpect(jsonPath("$.rain").value(DEFAULT_RAIN.toString()));
+            .andExpect(jsonPath("$.windAngleMin").value(DEFAULT_WIND_ANGLE_MIN.doubleValue()))
+            .andExpect(jsonPath("$.windAngleMax").value(DEFAULT_WIND_ANGLE_MAX.doubleValue()))
+            .andExpect(jsonPath("$.waveHeightMin").value(DEFAULT_WAVE_HEIGHT_MIN.doubleValue()))
+            .andExpect(jsonPath("$.waveHeightMax").value(DEFAULT_WAVE_HEIGHT_MAX.doubleValue()));
     }
 
     @Test
@@ -213,7 +233,10 @@ public class WeatherRequirementsResourceIntTest {
             .temperatureMax(UPDATED_TEMPERATURE_MAX)
             .windSpeedMin(UPDATED_WIND_SPEED_MIN)
             .windSpeedMax(UPDATED_WIND_SPEED_MAX)
-            .rain(UPDATED_RAIN);
+            .windAngleMin(UPDATED_WIND_ANGLE_MIN)
+            .windAngleMax(UPDATED_WIND_ANGLE_MAX)
+            .waveHeightMin(UPDATED_WAVE_HEIGHT_MIN)
+            .waveHeightMax(UPDATED_WAVE_HEIGHT_MAX);
         WeatherRequirementsDTO weatherRequirementsDTO = weatherRequirementsMapper.toDto(updatedWeatherRequirements);
 
         restWeatherRequirementsMockMvc.perform(put("/api/weather-requirements")
@@ -229,7 +252,10 @@ public class WeatherRequirementsResourceIntTest {
         assertThat(testWeatherRequirements.getTemperatureMax()).isEqualTo(UPDATED_TEMPERATURE_MAX);
         assertThat(testWeatherRequirements.getWindSpeedMin()).isEqualTo(UPDATED_WIND_SPEED_MIN);
         assertThat(testWeatherRequirements.getWindSpeedMax()).isEqualTo(UPDATED_WIND_SPEED_MAX);
-        assertThat(testWeatherRequirements.getRain()).isEqualTo(UPDATED_RAIN);
+        assertThat(testWeatherRequirements.getWindAngleMin()).isEqualTo(UPDATED_WIND_ANGLE_MIN);
+        assertThat(testWeatherRequirements.getWindAngleMax()).isEqualTo(UPDATED_WIND_ANGLE_MAX);
+        assertThat(testWeatherRequirements.getWaveHeightMin()).isEqualTo(UPDATED_WAVE_HEIGHT_MIN);
+        assertThat(testWeatherRequirements.getWaveHeightMax()).isEqualTo(UPDATED_WAVE_HEIGHT_MAX);
     }
 
     @Test

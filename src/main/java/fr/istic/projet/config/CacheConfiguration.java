@@ -54,6 +54,7 @@ public class CacheConfiguration {
             cm.createCache(fr.istic.projet.domain.Weather.class.getName(), jcacheConfiguration);
             cm.createCache(fr.istic.projet.domain.WeatherRequirements.class.getName(), jcacheConfiguration);
             cm.createCache(fr.istic.projet.domain.Sport.class.getName() + ".personLists", jcacheConfiguration);
+            cm.createCache(fr.istic.projet.domain.Precipitation.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

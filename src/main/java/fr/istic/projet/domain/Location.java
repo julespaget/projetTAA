@@ -22,9 +22,6 @@ public class Location implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
     @NotNull
     @Column(name = "latitude", nullable = false)
     private Double latitude;
@@ -40,19 +37,6 @@ public class Location implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Location name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Double getLatitude() {
@@ -106,7 +90,6 @@ public class Location implements Serializable {
     public String toString() {
         return "Location{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
             ", latitude='" + getLatitude() + "'" +
             ", longitude='" + getLongitude() + "'" +
             "}";

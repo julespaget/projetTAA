@@ -2,8 +2,9 @@ package fr.istic.projet.service.dto;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
-import fr.istic.projet.domain.enumeration.Ternary;
 
 /**
  * A DTO for the WeatherRequirements entity.
@@ -20,7 +21,17 @@ public class WeatherRequirementsDTO implements Serializable {
 
     private Double windSpeedMax;
 
-    private Ternary rain;
+    private Double windAngleMin;
+
+    private Double windAngleMax;
+
+    private Double waveHeightMin;
+
+    private Double waveHeightMax;
+
+    private Long precipitationMinId;
+
+    private Long precipitationMaxId;
 
     public Long getId() {
         return id;
@@ -62,12 +73,52 @@ public class WeatherRequirementsDTO implements Serializable {
         this.windSpeedMax = windSpeedMax;
     }
 
-    public Ternary getRain() {
-        return rain;
+    public Double getWindAngleMin() {
+        return windAngleMin;
     }
 
-    public void setRain(Ternary rain) {
-        this.rain = rain;
+    public void setWindAngleMin(Double windAngleMin) {
+        this.windAngleMin = windAngleMin;
+    }
+
+    public Double getWindAngleMax() {
+        return windAngleMax;
+    }
+
+    public void setWindAngleMax(Double windAngleMax) {
+        this.windAngleMax = windAngleMax;
+    }
+
+    public Double getWaveHeightMin() {
+        return waveHeightMin;
+    }
+
+    public void setWaveHeightMin(Double waveHeightMin) {
+        this.waveHeightMin = waveHeightMin;
+    }
+
+    public Double getWaveHeightMax() {
+        return waveHeightMax;
+    }
+
+    public void setWaveHeightMax(Double waveHeightMax) {
+        this.waveHeightMax = waveHeightMax;
+    }
+
+    public Long getPrecipitationMinId() {
+        return precipitationMinId;
+    }
+
+    public void setPrecipitationMinId(Long precipitationId) {
+        this.precipitationMinId = precipitationId;
+    }
+
+    public Long getPrecipitationMaxId() {
+        return precipitationMaxId;
+    }
+
+    public void setPrecipitationMaxId(Long precipitationId) {
+        this.precipitationMaxId = precipitationId;
     }
 
     @Override
@@ -99,7 +150,10 @@ public class WeatherRequirementsDTO implements Serializable {
             ", temperatureMax='" + getTemperatureMax() + "'" +
             ", windSpeedMin='" + getWindSpeedMin() + "'" +
             ", windSpeedMax='" + getWindSpeedMax() + "'" +
-            ", rain='" + getRain() + "'" +
+            ", windAngleMin='" + getWindAngleMin() + "'" +
+            ", windAngleMax='" + getWindAngleMax() + "'" +
+            ", waveHeightMin='" + getWaveHeightMin() + "'" +
+            ", waveHeightMax='" + getWaveHeightMax() + "'" +
             "}";
     }
 }

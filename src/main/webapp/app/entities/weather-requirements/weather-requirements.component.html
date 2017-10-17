@@ -21,7 +21,12 @@
             <th><span>Temperature Max</span></th>
             <th><span>Wind Speed Min</span></th>
             <th><span>Wind Speed Max</span></th>
-            <th><span>Rain</span></th>
+            <th><span>Wind Angle Min</span></th>
+            <th><span>Wind Angle Max</span></th>
+            <th><span>Wave Height Min</span></th>
+            <th><span>Wave Height Max</span></th>
+            <th><span>Precipitation Min</span></th>
+            <th><span>Precipitation Max</span></th>
             <th></th>
             </tr>
             </thead>
@@ -32,7 +37,20 @@
                 <td>{{weatherRequirements.temperatureMax}}</td>
                 <td>{{weatherRequirements.windSpeedMin}}</td>
                 <td>{{weatherRequirements.windSpeedMax}}</td>
-                <td>{{weatherRequirements.rain}}</td>
+                <td>{{weatherRequirements.windAngleMin}}</td>
+                <td>{{weatherRequirements.windAngleMax}}</td>
+                <td>{{weatherRequirements.waveHeightMin}}</td>
+                <td>{{weatherRequirements.waveHeightMax}}</td>
+                <td>
+                    <div *ngIf="weatherRequirements.precipitationMinId">
+                        <a [routerLink]="['../precipitation', weatherRequirements.precipitationMinId  ]" >{{weatherRequirements.precipitationMinId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="weatherRequirements.precipitationMaxId">
+                        <a [routerLink]="['../precipitation', weatherRequirements.precipitationMaxId  ]" >{{weatherRequirements.precipitationMaxId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

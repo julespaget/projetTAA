@@ -24,8 +24,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static fr.istic.projet.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -40,17 +45,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = WeekandgoApp.class)
 public class WeatherResourceIntTest {
 
+    private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
     private static final Double DEFAULT_TEMPERATURE = 1D;
     private static final Double UPDATED_TEMPERATURE = 2D;
 
     private static final Double DEFAULT_WIND_SPEED = 1D;
     private static final Double UPDATED_WIND_SPEED = 2D;
 
-    private static final Boolean DEFAULT_RAIN = false;
-    private static final Boolean UPDATED_RAIN = true;
+    private static final Double DEFAULT_WIND_ANGLE = 1D;
+    private static final Double UPDATED_WIND_ANGLE = 2D;
 
     private static final Double DEFAULT_WAVE_HEIGHT = 1D;
     private static final Double UPDATED_WAVE_HEIGHT = 2D;
+
+    private static final Double DEFAULT_CLOUDS = 1D;
+    private static final Double UPDATED_CLOUDS = 2D;
+
+    private static final Double DEFAULT_PRESSURE = 1D;
+    private static final Double UPDATED_PRESSURE = 2D;
+
+    private static final Double DEFAULT_HUMIDITY = 1D;
+    private static final Double UPDATED_HUMIDITY = 2D;
 
     @Autowired
     private WeatherRepository weatherRepository;
@@ -95,10 +112,14 @@ public class WeatherResourceIntTest {
      */
     public static Weather createEntity(EntityManager em) {
         Weather weather = new Weather()
+            .date(DEFAULT_DATE)
             .temperature(DEFAULT_TEMPERATURE)
             .windSpeed(DEFAULT_WIND_SPEED)
-            .rain(DEFAULT_RAIN)
-            .waveHeight(DEFAULT_WAVE_HEIGHT);
+            .windAngle(DEFAULT_WIND_ANGLE)
+            .waveHeight(DEFAULT_WAVE_HEIGHT)
+            .clouds(DEFAULT_CLOUDS)
+            .pressure(DEFAULT_PRESSURE)
+            .humidity(DEFAULT_HUMIDITY);
         return weather;
     }
 
@@ -123,10 +144,14 @@ public class WeatherResourceIntTest {
         List<Weather> weatherList = weatherRepository.findAll();
         assertThat(weatherList).hasSize(databaseSizeBeforeCreate + 1);
         Weather testWeather = weatherList.get(weatherList.size() - 1);
+        assertThat(testWeather.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testWeather.getTemperature()).isEqualTo(DEFAULT_TEMPERATURE);
         assertThat(testWeather.getWindSpeed()).isEqualTo(DEFAULT_WIND_SPEED);
-        assertThat(testWeather.isRain()).isEqualTo(DEFAULT_RAIN);
+        assertThat(testWeather.getWindAngle()).isEqualTo(DEFAULT_WIND_ANGLE);
         assertThat(testWeather.getWaveHeight()).isEqualTo(DEFAULT_WAVE_HEIGHT);
+        assertThat(testWeather.getClouds()).isEqualTo(DEFAULT_CLOUDS);
+        assertThat(testWeather.getPressure()).isEqualTo(DEFAULT_PRESSURE);
+        assertThat(testWeather.getHumidity()).isEqualTo(DEFAULT_HUMIDITY);
     }
 
     @Test
@@ -160,10 +185,14 @@ public class WeatherResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(weather.getId().intValue())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(sameInstant(DEFAULT_DATE))))
             .andExpect(jsonPath("$.[*].temperature").value(hasItem(DEFAULT_TEMPERATURE.doubleValue())))
             .andExpect(jsonPath("$.[*].windSpeed").value(hasItem(DEFAULT_WIND_SPEED.doubleValue())))
-            .andExpect(jsonPath("$.[*].rain").value(hasItem(DEFAULT_RAIN.booleanValue())))
-            .andExpect(jsonPath("$.[*].waveHeight").value(hasItem(DEFAULT_WAVE_HEIGHT.doubleValue())));
+            .andExpect(jsonPath("$.[*].windAngle").value(hasItem(DEFAULT_WIND_ANGLE.doubleValue())))
+            .andExpect(jsonPath("$.[*].waveHeight").value(hasItem(DEFAULT_WAVE_HEIGHT.doubleValue())))
+            .andExpect(jsonPath("$.[*].clouds").value(hasItem(DEFAULT_CLOUDS.doubleValue())))
+            .andExpect(jsonPath("$.[*].pressure").value(hasItem(DEFAULT_PRESSURE.doubleValue())))
+            .andExpect(jsonPath("$.[*].humidity").value(hasItem(DEFAULT_HUMIDITY.doubleValue())));
     }
 
     @Test
@@ -177,10 +206,14 @@ public class WeatherResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(weather.getId().intValue()))
+            .andExpect(jsonPath("$.date").value(sameInstant(DEFAULT_DATE)))
             .andExpect(jsonPath("$.temperature").value(DEFAULT_TEMPERATURE.doubleValue()))
             .andExpect(jsonPath("$.windSpeed").value(DEFAULT_WIND_SPEED.doubleValue()))
-            .andExpect(jsonPath("$.rain").value(DEFAULT_RAIN.booleanValue()))
-            .andExpect(jsonPath("$.waveHeight").value(DEFAULT_WAVE_HEIGHT.doubleValue()));
+            .andExpect(jsonPath("$.windAngle").value(DEFAULT_WIND_ANGLE.doubleValue()))
+            .andExpect(jsonPath("$.waveHeight").value(DEFAULT_WAVE_HEIGHT.doubleValue()))
+            .andExpect(jsonPath("$.clouds").value(DEFAULT_CLOUDS.doubleValue()))
+            .andExpect(jsonPath("$.pressure").value(DEFAULT_PRESSURE.doubleValue()))
+            .andExpect(jsonPath("$.humidity").value(DEFAULT_HUMIDITY.doubleValue()));
     }
 
     @Test
@@ -201,10 +234,14 @@ public class WeatherResourceIntTest {
         // Update the weather
         Weather updatedWeather = weatherRepository.findOne(weather.getId());
         updatedWeather
+            .date(UPDATED_DATE)
             .temperature(UPDATED_TEMPERATURE)
             .windSpeed(UPDATED_WIND_SPEED)
-            .rain(UPDATED_RAIN)
-            .waveHeight(UPDATED_WAVE_HEIGHT);
+            .windAngle(UPDATED_WIND_ANGLE)
+            .waveHeight(UPDATED_WAVE_HEIGHT)
+            .clouds(UPDATED_CLOUDS)
+            .pressure(UPDATED_PRESSURE)
+            .humidity(UPDATED_HUMIDITY);
         WeatherDTO weatherDTO = weatherMapper.toDto(updatedWeather);
 
         restWeatherMockMvc.perform(put("/api/weathers")
@@ -216,10 +253,14 @@ public class WeatherResourceIntTest {
         List<Weather> weatherList = weatherRepository.findAll();
         assertThat(weatherList).hasSize(databaseSizeBeforeUpdate);
         Weather testWeather = weatherList.get(weatherList.size() - 1);
+        assertThat(testWeather.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testWeather.getTemperature()).isEqualTo(UPDATED_TEMPERATURE);
         assertThat(testWeather.getWindSpeed()).isEqualTo(UPDATED_WIND_SPEED);
-        assertThat(testWeather.isRain()).isEqualTo(UPDATED_RAIN);
+        assertThat(testWeather.getWindAngle()).isEqualTo(UPDATED_WIND_ANGLE);
         assertThat(testWeather.getWaveHeight()).isEqualTo(UPDATED_WAVE_HEIGHT);
+        assertThat(testWeather.getClouds()).isEqualTo(UPDATED_CLOUDS);
+        assertThat(testWeather.getPressure()).isEqualTo(UPDATED_PRESSURE);
+        assertThat(testWeather.getHumidity()).isEqualTo(UPDATED_HUMIDITY);
     }
 
     @Test

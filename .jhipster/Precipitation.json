@@ -1,0 +1,20 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "type",
+            "fieldType": "PrecipitationType",
+            "fieldValues": "RAIN,SNOW"
+        },
+        {
+            "fieldName": "value",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20171017093811",
+    "entityTableName": "precipitation",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

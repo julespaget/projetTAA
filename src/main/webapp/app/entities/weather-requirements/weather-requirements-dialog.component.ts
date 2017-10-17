@@ -9,6 +9,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { WeatherRequirements } from './weather-requirements.model';
 import { WeatherRequirementsPopupService } from './weather-requirements-popup.service';
 import { WeatherRequirementsService } from './weather-requirements.service';
+import { Precipitation, PrecipitationService } from '../precipitation';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-weather-requirements-dialog',
@@ -19,16 +21,47 @@ export class WeatherRequirementsDialogComponent implements OnInit {
     weatherRequirements: WeatherRequirements;
     isSaving: boolean;
 
+    precipitationmins: Precipitation[];
+
+    precipitationmaxes: Precipitation[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private weatherRequirementsService: WeatherRequirementsService,
+        private precipitationService: PrecipitationService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
+        this.precipitationService
+            .query({filter: 'weatherrequirements-is-null'})
+            .subscribe((res: ResponseWrapper) => {
+                if (!this.weatherRequirements.precipitationMinId) {
+                    this.precipitationmins = res.json;
+                } else {
+                    this.precipitationService
+                        .find(this.weatherRequirements.precipitationMinId)
+                        .subscribe((subRes: Precipitation) => {
+                            this.precipitationmins = [subRes].concat(res.json);
+                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
+                }
+            }, (res: ResponseWrapper) => this.onError(res.json));
+        this.precipitationService
+            .query({filter: 'weatherrequirements-is-null'})
+            .subscribe((res: ResponseWrapper) => {
+                if (!this.weatherRequirements.precipitationMaxId) {
+                    this.precipitationmaxes = res.json;
+                } else {
+                    this.precipitationService
+                        .find(this.weatherRequirements.precipitationMaxId)
+                        .subscribe((subRes: Precipitation) => {
+                            this.precipitationmaxes = [subRes].concat(res.json);
+                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
+                }
+            }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -63,6 +96,10 @@ export class WeatherRequirementsDialogComponent implements OnInit {
 
     private onError(error: any) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+
+    trackPrecipitationById(index: number, item: Precipitation) {
+        return item.id;
     }
 }
 

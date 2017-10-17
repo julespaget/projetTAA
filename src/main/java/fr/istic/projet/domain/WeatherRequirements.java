@@ -7,8 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-import fr.istic.projet.domain.enumeration.Ternary;
-
 /**
  * A WeatherRequirements.
  */
@@ -35,9 +33,25 @@ public class WeatherRequirements implements Serializable {
     @Column(name = "wind_speed_max")
     private Double windSpeedMax;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "rain")
-    private Ternary rain;
+    @Column(name = "wind_angle_min")
+    private Double windAngleMin;
+
+    @Column(name = "wind_angle_max")
+    private Double windAngleMax;
+
+    @Column(name = "wave_height_min")
+    private Double waveHeightMin;
+
+    @Column(name = "wave_height_max")
+    private Double waveHeightMax;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Precipitation precipitationMin;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Precipitation precipitationMax;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -100,17 +114,82 @@ public class WeatherRequirements implements Serializable {
         this.windSpeedMax = windSpeedMax;
     }
 
-    public Ternary getRain() {
-        return rain;
+    public Double getWindAngleMin() {
+        return windAngleMin;
     }
 
-    public WeatherRequirements rain(Ternary rain) {
-        this.rain = rain;
+    public WeatherRequirements windAngleMin(Double windAngleMin) {
+        this.windAngleMin = windAngleMin;
         return this;
     }
 
-    public void setRain(Ternary rain) {
-        this.rain = rain;
+    public void setWindAngleMin(Double windAngleMin) {
+        this.windAngleMin = windAngleMin;
+    }
+
+    public Double getWindAngleMax() {
+        return windAngleMax;
+    }
+
+    public WeatherRequirements windAngleMax(Double windAngleMax) {
+        this.windAngleMax = windAngleMax;
+        return this;
+    }
+
+    public void setWindAngleMax(Double windAngleMax) {
+        this.windAngleMax = windAngleMax;
+    }
+
+    public Double getWaveHeightMin() {
+        return waveHeightMin;
+    }
+
+    public WeatherRequirements waveHeightMin(Double waveHeightMin) {
+        this.waveHeightMin = waveHeightMin;
+        return this;
+    }
+
+    public void setWaveHeightMin(Double waveHeightMin) {
+        this.waveHeightMin = waveHeightMin;
+    }
+
+    public Double getWaveHeightMax() {
+        return waveHeightMax;
+    }
+
+    public WeatherRequirements waveHeightMax(Double waveHeightMax) {
+        this.waveHeightMax = waveHeightMax;
+        return this;
+    }
+
+    public void setWaveHeightMax(Double waveHeightMax) {
+        this.waveHeightMax = waveHeightMax;
+    }
+
+    public Precipitation getPrecipitationMin() {
+        return precipitationMin;
+    }
+
+    public WeatherRequirements precipitationMin(Precipitation precipitation) {
+        this.precipitationMin = precipitation;
+        return this;
+    }
+
+    public void setPrecipitationMin(Precipitation precipitation) {
+        this.precipitationMin = precipitation;
+    }
+
+    public Precipitation getPrecipitationMax() {
+        return precipitationMax;
+    }
+
+    public WeatherRequirements precipitationMax(Precipitation precipitation) {
+        this.precipitationMax = precipitation;
+        return this;
+    }
+
+    public void setPrecipitationMax(Precipitation precipitation) {
+        this.precipitationMax = precipitation;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -142,7 +221,10 @@ public class WeatherRequirements implements Serializable {
             ", temperatureMax='" + getTemperatureMax() + "'" +
             ", windSpeedMin='" + getWindSpeedMin() + "'" +
             ", windSpeedMax='" + getWindSpeedMax() + "'" +
-            ", rain='" + getRain() + "'" +
+            ", windAngleMin='" + getWindAngleMin() + "'" +
+            ", windAngleMax='" + getWindAngleMax() + "'" +
+            ", waveHeightMin='" + getWaveHeightMin() + "'" +
+            ", waveHeightMax='" + getWaveHeightMax() + "'" +
             "}";
     }
 }

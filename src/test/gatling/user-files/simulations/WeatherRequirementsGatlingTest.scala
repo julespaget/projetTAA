@@ -68,7 +68,7 @@ class WeatherRequirementsGatlingTest extends Simulation {
             .exec(http("Create new weatherRequirements")
             .post("/api/weather-requirements")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "temperatureMin":null, "temperatureMax":null, "windSpeedMin":null, "windSpeedMax":null, "rain":null}""")).asJSON
+            .body(StringBody("""{"id":null, "temperatureMin":null, "temperatureMax":null, "windSpeedMin":null, "windSpeedMax":null, "windAngleMin":null, "windAngleMax":null, "waveHeightMin":null, "waveHeightMax":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_weatherRequirements_url"))).exitHereIfFailed
             .pause(10)

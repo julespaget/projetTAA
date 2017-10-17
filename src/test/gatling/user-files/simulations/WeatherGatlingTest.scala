@@ -68,7 +68,7 @@ class WeatherGatlingTest extends Simulation {
             .exec(http("Create new weather")
             .post("/api/weathers")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "temperature":null, "windSpeed":null, "rain":null, "waveHeight":null}""")).asJSON
+            .body(StringBody("""{"id":null, "date":"2020-01-01T00:00:00.000Z", "temperature":null, "windSpeed":null, "windAngle":null, "waveHeight":null, "clouds":null, "pressure":null, "humidity":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_weather_url"))).exitHereIfFailed
             .pause(10)

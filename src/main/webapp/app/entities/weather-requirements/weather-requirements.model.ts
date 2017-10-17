@@ -1,11 +1,5 @@
 import { BaseEntity } from './../../shared';
 
-export const enum Ternary {
-    'YES',
-    'NO',
-    'IRRELEVANT'
-}
-
 export class WeatherRequirements implements BaseEntity {
     constructor(
         public id?: number,
@@ -13,7 +7,12 @@ export class WeatherRequirements implements BaseEntity {
         public temperatureMax?: number,
         public windSpeedMin?: number,
         public windSpeedMax?: number,
-        public rain?: Ternary,
+        public windAngleMin?: number,
+        public windAngleMax?: number,
+        public waveHeightMin?: number,
+        public waveHeightMax?: number,
+        public precipitationMinId?: number,
+        public precipitationMaxId?: number,
     ) {
     }
 }

@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SERVER_API_URL } from '../../app.constants';
 
+import { JhiDateUtils } from 'ng-jhipster';
+
 import { Weather } from './weather.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
 
@@ -11,7 +13,7 @@ export class WeatherService {
 
     private resourceUrl = SERVER_API_URL + 'api/weathers';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
     create(weather: Weather): Observable<Weather> {
         const copy = this.convert(weather);
@@ -60,6 +62,8 @@ export class WeatherService {
      */
     private convertItemFromServer(json: any): Weather {
         const entity: Weather = Object.assign(new Weather(), json);
+        entity.date = this.dateUtils
+            .convertDateTimeFromServer(json.date);
         return entity;
     }
 
@@ -68,6 +72,8 @@ export class WeatherService {
      */
     private convert(weather: Weather): Weather {
         const copy: Weather = Object.assign({}, weather);
+
+        copy.date = this.dateUtils.toDate(weather.date);
         return copy;
     }
 }

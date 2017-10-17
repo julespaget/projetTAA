@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -21,17 +22,33 @@ public class Weather implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "jhi_date")
+    private ZonedDateTime date;
+
     @Column(name = "temperature")
     private Double temperature;
 
     @Column(name = "wind_speed")
     private Double windSpeed;
 
-    @Column(name = "rain")
-    private Boolean rain;
+    @Column(name = "wind_angle")
+    private Double windAngle;
 
     @Column(name = "wave_height")
     private Double waveHeight;
+
+    @Column(name = "clouds")
+    private Double clouds;
+
+    @Column(name = "pressure")
+    private Double pressure;
+
+    @Column(name = "humidity")
+    private Double humidity;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Precipitation precipitation;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -40,6 +57,19 @@ public class Weather implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public ZonedDateTime getDate() {
+        return date;
+    }
+
+    public Weather date(ZonedDateTime date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(ZonedDateTime date) {
+        this.date = date;
     }
 
     public Double getTemperature() {
@@ -68,17 +98,17 @@ public class Weather implements Serializable {
         this.windSpeed = windSpeed;
     }
 
-    public Boolean isRain() {
-        return rain;
+    public Double getWindAngle() {
+        return windAngle;
     }
 
-    public Weather rain(Boolean rain) {
-        this.rain = rain;
+    public Weather windAngle(Double windAngle) {
+        this.windAngle = windAngle;
         return this;
     }
 
-    public void setRain(Boolean rain) {
-        this.rain = rain;
+    public void setWindAngle(Double windAngle) {
+        this.windAngle = windAngle;
     }
 
     public Double getWaveHeight() {
@@ -92,6 +122,58 @@ public class Weather implements Serializable {
 
     public void setWaveHeight(Double waveHeight) {
         this.waveHeight = waveHeight;
+    }
+
+    public Double getClouds() {
+        return clouds;
+    }
+
+    public Weather clouds(Double clouds) {
+        this.clouds = clouds;
+        return this;
+    }
+
+    public void setClouds(Double clouds) {
+        this.clouds = clouds;
+    }
+
+    public Double getPressure() {
+        return pressure;
+    }
+
+    public Weather pressure(Double pressure) {
+        this.pressure = pressure;
+        return this;
+    }
+
+    public void setPressure(Double pressure) {
+        this.pressure = pressure;
+    }
+
+    public Double getHumidity() {
+        return humidity;
+    }
+
+    public Weather humidity(Double humidity) {
+        this.humidity = humidity;
+        return this;
+    }
+
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
+    }
+
+    public Precipitation getPrecipitation() {
+        return precipitation;
+    }
+
+    public Weather precipitation(Precipitation precipitation) {
+        this.precipitation = precipitation;
+        return this;
+    }
+
+    public void setPrecipitation(Precipitation precipitation) {
+        this.precipitation = precipitation;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -119,10 +201,14 @@ public class Weather implements Serializable {
     public String toString() {
         return "Weather{" +
             "id=" + getId() +
+            ", date='" + getDate() + "'" +
             ", temperature='" + getTemperature() + "'" +
             ", windSpeed='" + getWindSpeed() + "'" +
-            ", rain='" + isRain() + "'" +
+            ", windAngle='" + getWindAngle() + "'" +
             ", waveHeight='" + getWaveHeight() + "'" +
+            ", clouds='" + getClouds() + "'" +
+            ", pressure='" + getPressure() + "'" +
+            ", humidity='" + getHumidity() + "'" +
             "}";
     }
 }

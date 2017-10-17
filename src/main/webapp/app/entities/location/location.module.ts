@@ -1,5 +1,4 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Component} from '@angular/core';
-import { BrowserModule} from "@angular/platform-browser";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { WeekandgoSharedModule } from '../../shared';
@@ -15,7 +14,6 @@ import {
     locationRoute,
     locationPopupRoute,
 } from './';
-
 
 const ENTITY_STATES = [
     ...locationRoute,
@@ -49,4 +47,3 @@ const ENTITY_STATES = [
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class WeekandgoLocationModule {}
-

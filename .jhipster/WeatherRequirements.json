@@ -1,6 +1,23 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "precipitationMin",
+            "otherEntityName": "precipitation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "weatherRequirements"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "precipitationMax",
+            "otherEntityName": "precipitation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "weatherRequirements"
+        }
+    ],
     "fields": [
         {
             "fieldName": "temperatureMin",
@@ -19,9 +36,20 @@
             "fieldType": "Double"
         },
         {
-            "fieldName": "rain",
-            "fieldType": "Ternary",
-            "fieldValues": "YES,NO,IRRELEVANT"
+            "fieldName": "windAngleMin",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "windAngleMax",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "waveHeightMin",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "waveHeightMax",
+            "fieldType": "Double"
         }
     ],
     "changelogDate": "20171015122933",

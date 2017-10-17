@@ -35,8 +35,6 @@ describe('Location e2e test', () => {
 
     it('should create and save Locations', () => {
         locationComponentsPage.clickOnCreateButton();
-        locationDialogPage.setNameInput('name');
-        expect(locationDialogPage.getNameInput()).toMatch('name');
         locationDialogPage.setLatitudeInput('5');
         expect(locationDialogPage.getLatitudeInput()).toMatch('5');
         locationDialogPage.setLongitudeInput('5');
@@ -67,20 +65,11 @@ export class LocationDialogPage {
     modalTitle = element(by.css('h4#myLocationLabel'));
     saveButton = element(by.css('.modal-footer .btn.btn-primary'));
     closeButton = element(by.css('button.close'));
-    nameInput = element(by.css('input#field_name'));
     latitudeInput = element(by.css('input#field_latitude'));
     longitudeInput = element(by.css('input#field_longitude'));
 
     getModalTitle() {
         return this.modalTitle.getText();
-    }
-
-    setNameInput = function (name) {
-        this.nameInput.sendKeys(name);
-    }
-
-    getNameInput = function () {
-        return this.nameInput.getAttribute('value');
     }
 
     setLatitudeInput = function (latitude) {

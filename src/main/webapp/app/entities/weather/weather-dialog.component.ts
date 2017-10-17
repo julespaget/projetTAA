@@ -9,6 +9,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Weather } from './weather.model';
 import { WeatherPopupService } from './weather-popup.service';
 import { WeatherService } from './weather.service';
+import { Precipitation, PrecipitationService } from '../precipitation';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-weather-dialog',
@@ -19,16 +21,32 @@ export class WeatherDialogComponent implements OnInit {
     weather: Weather;
     isSaving: boolean;
 
+    precipitations: Precipitation[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private weatherService: WeatherService,
+        private precipitationService: PrecipitationService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
+        this.precipitationService
+            .query({filter: 'weather-is-null'})
+            .subscribe((res: ResponseWrapper) => {
+                if (!this.weather.precipitationId) {
+                    this.precipitations = res.json;
+                } else {
+                    this.precipitationService
+                        .find(this.weather.precipitationId)
+                        .subscribe((subRes: Precipitation) => {
+                            this.precipitations = [subRes].concat(res.json);
+                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
+                }
+            }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -63,6 +81,10 @@ export class WeatherDialogComponent implements OnInit {
 
     private onError(error: any) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+
+    trackPrecipitationById(index: number, item: Precipitation) {
+        return item.id;
     }
 }
 

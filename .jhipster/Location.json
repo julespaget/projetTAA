@@ -3,10 +3,6 @@
     "relationships": [],
     "fields": [
         {
-            "fieldName": "name",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "latitude",
             "fieldType": "Double",
             "fieldValidateRules": [

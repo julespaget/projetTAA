@@ -12,8 +12,6 @@ public class LocationDTO implements Serializable {
 
     private Long id;
 
-    private String name;
-
     @NotNull
     private Double latitude;
 
@@ -26,14 +24,6 @@ public class LocationDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Double getLatitude() {
@@ -77,7 +67,6 @@ public class LocationDTO implements Serializable {
     public String toString() {
         return "LocationDTO{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
             ", latitude='" + getLatitude() + "'" +
             ", longitude='" + getLongitude() + "'" +
             "}";

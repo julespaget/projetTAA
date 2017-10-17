@@ -1,7 +1,20 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "precipitation",
+            "otherEntityName": "precipitation",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "weather"
+        }
+    ],
     "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime"
+        },
         {
             "fieldName": "temperature",
             "fieldType": "Double"
@@ -11,11 +24,23 @@
             "fieldType": "Double"
         },
         {
-            "fieldName": "rain",
-            "fieldType": "Boolean"
+            "fieldName": "windAngle",
+            "fieldType": "Double"
         },
         {
             "fieldName": "waveHeight",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "clouds",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "pressure",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "humidity",
             "fieldType": "Double"
         }
     ],

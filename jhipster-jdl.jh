@@ -1,6 +1,5 @@
 
 entity Location {
-	name String,
 	latitude Double required,
     longitude Double required
 }
@@ -22,10 +21,14 @@ entity Person {
 }
 
 entity Weather {
+	date ZonedDateTime,
 	temperature Double,
     windSpeed Double,
-    rain Boolean,
-    waveHeight Double
+    windAngle Double,
+    waveHeight Double,
+    clouds Double,
+    pressure Double,
+    humidity Double
 }
 
 entity WeatherRequirements{
@@ -33,15 +36,26 @@ entity WeatherRequirements{
     temperatureMax Double,
     windSpeedMin Double,
     windSpeedMax Double,
-    rain Ternary
+    windAngleMin Double,
+    windAngleMax Double,
+    waveHeightMin Double,
+    waveHeightMax Double
 }
 
-enum Ternary {
-    YES, NO, IRRELEVANT
+entity Precipitation{
+	type PrecipitationType,
+	value Double
+}
+
+enum PrecipitationType{
+	RAIN, SNOW
 }
 
 relationship OneToOne {
-	Place{location} to Location 
+	Place{location} to Location,
+    WeatherRequirements{precipitationMin} to Precipitation,
+    WeatherRequirements{precipitationMax} to Precipitation,
+    Weather{precipitation} to Precipitation
 }
 
 relationship ManyToMany {

@@ -1,7 +1,10 @@
 package fr.istic.projet.service.dto;
 
 
+import java.time.ZonedDateTime;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -11,13 +14,23 @@ public class WeatherDTO implements Serializable {
 
     private Long id;
 
+    private ZonedDateTime date;
+
     private Double temperature;
 
     private Double windSpeed;
 
-    private Boolean rain;
+    private Double windAngle;
 
     private Double waveHeight;
+
+    private Double clouds;
+
+    private Double pressure;
+
+    private Double humidity;
+
+    private Long precipitationId;
 
     public Long getId() {
         return id;
@@ -25,6 +38,14 @@ public class WeatherDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public ZonedDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(ZonedDateTime date) {
+        this.date = date;
     }
 
     public Double getTemperature() {
@@ -43,12 +64,12 @@ public class WeatherDTO implements Serializable {
         this.windSpeed = windSpeed;
     }
 
-    public Boolean isRain() {
-        return rain;
+    public Double getWindAngle() {
+        return windAngle;
     }
 
-    public void setRain(Boolean rain) {
-        this.rain = rain;
+    public void setWindAngle(Double windAngle) {
+        this.windAngle = windAngle;
     }
 
     public Double getWaveHeight() {
@@ -57,6 +78,38 @@ public class WeatherDTO implements Serializable {
 
     public void setWaveHeight(Double waveHeight) {
         this.waveHeight = waveHeight;
+    }
+
+    public Double getClouds() {
+        return clouds;
+    }
+
+    public void setClouds(Double clouds) {
+        this.clouds = clouds;
+    }
+
+    public Double getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(Double pressure) {
+        this.pressure = pressure;
+    }
+
+    public Double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
+    }
+
+    public Long getPrecipitationId() {
+        return precipitationId;
+    }
+
+    public void setPrecipitationId(Long precipitationId) {
+        this.precipitationId = precipitationId;
     }
 
     @Override
@@ -84,10 +137,14 @@ public class WeatherDTO implements Serializable {
     public String toString() {
         return "WeatherDTO{" +
             "id=" + getId() +
+            ", date='" + getDate() + "'" +
             ", temperature='" + getTemperature() + "'" +
             ", windSpeed='" + getWindSpeed() + "'" +
-            ", rain='" + isRain() + "'" +
+            ", windAngle='" + getWindAngle() + "'" +
             ", waveHeight='" + getWaveHeight() + "'" +
+            ", clouds='" + getClouds() + "'" +
+            ", pressure='" + getPressure() + "'" +
+            ", humidity='" + getHumidity() + "'" +
             "}";
     }
 }

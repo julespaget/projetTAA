@@ -1,18 +1,14 @@
-//import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-//import { Subscription } from 'rxjs/Rx';
-//import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Rx';
+import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } from 'ng-jhipster';
 
 import { Location } from './location.model';
 import { LocationService } from './location.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
-import {Subscription} from "rxjs/Subscription";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
 @Component({
-
     selector: 'jhi-location',
     templateUrl: './location.component.html'
 })

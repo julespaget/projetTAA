@@ -33,14 +33,40 @@
                 [(ngModel)]="weatherRequirements.windSpeedMax"  />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_rain">Rain</label>
-            <select class="form-control" name="rain" [(ngModel)]="weatherRequirements.rain" id="field_rain" >
-                <option value="YES">YES</option>
-                <option value="NO">NO</option>
-                <option value="IRRELEVANT">IRRELEVANT</option>
-            </select>
+            <label class="form-control-label" for="field_windAngleMin">Wind Angle Min</label>
+            <input type="number" class="form-control" name="windAngleMin" id="field_windAngleMin"
+                [(ngModel)]="weatherRequirements.windAngleMin"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_windAngleMax">Wind Angle Max</label>
+            <input type="number" class="form-control" name="windAngleMax" id="field_windAngleMax"
+                [(ngModel)]="weatherRequirements.windAngleMax"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_waveHeightMin">Wave Height Min</label>
+            <input type="number" class="form-control" name="waveHeightMin" id="field_waveHeightMin"
+                [(ngModel)]="weatherRequirements.waveHeightMin"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_waveHeightMax">Wave Height Max</label>
+            <input type="number" class="form-control" name="waveHeightMax" id="field_waveHeightMax"
+                [(ngModel)]="weatherRequirements.waveHeightMax"  />
         </div>
 
+        <div class="form-group">
+            <label class="form-control-label" for="field_precipitationMin">Precipitation Min</label>
+            <select class="form-control" id="field_precipitationMin" name="precipitationMin" [(ngModel)]="weatherRequirements.precipitationMinId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="precipitationOption.id" *ngFor="let precipitationOption of precipitationmins; trackBy: trackPrecipitationById">{{precipitationOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_precipitationMax">Precipitation Max</label>
+            <select class="form-control" id="field_precipitationMax" name="precipitationMax" [(ngModel)]="weatherRequirements.precipitationMaxId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="precipitationOption.id" *ngFor="let precipitationOption of precipitationmaxes; trackBy: trackPrecipitationById">{{precipitationOption.id}}</option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity WeatherRequirements.
+    -->
+    <changeSet id="20171015122933-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="precipitation_min_id"
+                                 baseTableName="weather_requirements"
+                                 constraintName="fk_weather_requirements_precipitation_min_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="precipitation"/>
+
+        <addForeignKeyConstraint baseColumnNames="precipitation_max_id"
+                                 baseTableName="weather_requirements"
+                                 constraintName="fk_weather_requirements_precipitation_max_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="precipitation"/>
+
+    </changeSet>
+</databaseChangeLog>

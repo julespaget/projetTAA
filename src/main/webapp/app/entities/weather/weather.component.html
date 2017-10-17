@@ -17,20 +17,34 @@
             <thead>
             <tr>
             <th><span>ID</span></th>
+            <th><span>Date</span></th>
             <th><span>Temperature</span></th>
             <th><span>Wind Speed</span></th>
-            <th><span>Rain</span></th>
+            <th><span>Wind Angle</span></th>
             <th><span>Wave Height</span></th>
+            <th><span>Clouds</span></th>
+            <th><span>Pressure</span></th>
+            <th><span>Humidity</span></th>
+            <th><span>Precipitation</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let weather of weathers ;trackBy: trackId">
                 <td><a [routerLink]="['../weather', weather.id ]">{{weather.id}}</a></td>
+                <td>{{weather.date | date:'medium'}}</td>
                 <td>{{weather.temperature}}</td>
                 <td>{{weather.windSpeed}}</td>
-                <td>{{weather.rain}}</td>
+                <td>{{weather.windAngle}}</td>
                 <td>{{weather.waveHeight}}</td>
+                <td>{{weather.clouds}}</td>
+                <td>{{weather.pressure}}</td>
+                <td>{{weather.humidity}}</td>
+                <td>
+                    <div *ngIf="weather.precipitationId">
+                        <a [routerLink]="['../precipitation', weather.precipitationId  ]" >{{weather.precipitationId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

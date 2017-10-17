@@ -4,6 +4,10 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{weather.date | date:'medium'}}</span>
+        </dd>
         <dt><span>Temperature</span></dt>
         <dd>
             <span>{{weather.temperature}}</span>
@@ -12,13 +16,31 @@
         <dd>
             <span>{{weather.windSpeed}}</span>
         </dd>
-        <dt><span>Rain</span></dt>
+        <dt><span>Wind Angle</span></dt>
         <dd>
-            <span>{{weather.rain}}</span>
+            <span>{{weather.windAngle}}</span>
         </dd>
         <dt><span>Wave Height</span></dt>
         <dd>
             <span>{{weather.waveHeight}}</span>
+        </dd>
+        <dt><span>Clouds</span></dt>
+        <dd>
+            <span>{{weather.clouds}}</span>
+        </dd>
+        <dt><span>Pressure</span></dt>
+        <dd>
+            <span>{{weather.pressure}}</span>
+        </dd>
+        <dt><span>Humidity</span></dt>
+        <dd>
+            <span>{{weather.humidity}}</span>
+        </dd>
+        <dt><span>Precipitation</span></dt>
+        <dd>
+            <div *ngIf="weather.precipitationId">
+                <a [routerLink]="['/precipitation', weather.precipitationId]">{{weather.precipitationId}}</a>
+            </div>
         </dd>
     </dl>
 

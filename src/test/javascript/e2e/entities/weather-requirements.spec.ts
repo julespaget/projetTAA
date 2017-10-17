@@ -43,7 +43,16 @@ describe('WeatherRequirements e2e test', () => {
         expect(weatherRequirementsDialogPage.getWindSpeedMinInput()).toMatch('5');
         weatherRequirementsDialogPage.setWindSpeedMaxInput('5');
         expect(weatherRequirementsDialogPage.getWindSpeedMaxInput()).toMatch('5');
-        weatherRequirementsDialogPage.rainSelectLastOption();
+        weatherRequirementsDialogPage.setWindAngleMinInput('5');
+        expect(weatherRequirementsDialogPage.getWindAngleMinInput()).toMatch('5');
+        weatherRequirementsDialogPage.setWindAngleMaxInput('5');
+        expect(weatherRequirementsDialogPage.getWindAngleMaxInput()).toMatch('5');
+        weatherRequirementsDialogPage.setWaveHeightMinInput('5');
+        expect(weatherRequirementsDialogPage.getWaveHeightMinInput()).toMatch('5');
+        weatherRequirementsDialogPage.setWaveHeightMaxInput('5');
+        expect(weatherRequirementsDialogPage.getWaveHeightMaxInput()).toMatch('5');
+        weatherRequirementsDialogPage.precipitationMinSelectLastOption();
+        weatherRequirementsDialogPage.precipitationMaxSelectLastOption();
         weatherRequirementsDialogPage.save();
         expect(weatherRequirementsDialogPage.getSaveButton().isPresent()).toBeFalsy();
     }); 
@@ -74,7 +83,12 @@ export class WeatherRequirementsDialogPage {
     temperatureMaxInput = element(by.css('input#field_temperatureMax'));
     windSpeedMinInput = element(by.css('input#field_windSpeedMin'));
     windSpeedMaxInput = element(by.css('input#field_windSpeedMax'));
-    rainSelect = element(by.css('select#field_rain'));
+    windAngleMinInput = element(by.css('input#field_windAngleMin'));
+    windAngleMaxInput = element(by.css('input#field_windAngleMax'));
+    waveHeightMinInput = element(by.css('input#field_waveHeightMin'));
+    waveHeightMaxInput = element(by.css('input#field_waveHeightMax'));
+    precipitationMinSelect = element(by.css('select#field_precipitationMin'));
+    precipitationMaxSelect = element(by.css('select#field_precipitationMax'));
 
     getModalTitle() {
         return this.modalTitle.getText();
@@ -112,17 +126,70 @@ export class WeatherRequirementsDialogPage {
         return this.windSpeedMaxInput.getAttribute('value');
     }
 
-    setRainSelect = function (rain) {
-        this.rainSelect.sendKeys(rain);
+    setWindAngleMinInput = function (windAngleMin) {
+        this.windAngleMinInput.sendKeys(windAngleMin);
     }
 
-    getRainSelect = function () {
-        return this.rainSelect.element(by.css('option:checked')).getText();
+    getWindAngleMinInput = function () {
+        return this.windAngleMinInput.getAttribute('value');
     }
 
-    rainSelectLastOption = function () {
-        this.rainSelect.all(by.tagName('option')).last().click();
+    setWindAngleMaxInput = function (windAngleMax) {
+        this.windAngleMaxInput.sendKeys(windAngleMax);
     }
+
+    getWindAngleMaxInput = function () {
+        return this.windAngleMaxInput.getAttribute('value');
+    }
+
+    setWaveHeightMinInput = function (waveHeightMin) {
+        this.waveHeightMinInput.sendKeys(waveHeightMin);
+    }
+
+    getWaveHeightMinInput = function () {
+        return this.waveHeightMinInput.getAttribute('value');
+    }
+
+    setWaveHeightMaxInput = function (waveHeightMax) {
+        this.waveHeightMaxInput.sendKeys(waveHeightMax);
+    }
+
+    getWaveHeightMaxInput = function () {
+        return this.waveHeightMaxInput.getAttribute('value');
+    }
+
+    precipitationMinSelectLastOption = function () {
+        this.precipitationMinSelect.all(by.tagName('option')).last().click();
+    }
+
+    precipitationMinSelectOption = function (option) {
+        this.precipitationMinSelect.sendKeys(option);
+    }
+
+    getPrecipitationMinSelect = function () {
+        return this.precipitationMinSelect;
+    }
+
+    getPrecipitationMinSelectedOption = function () {
+        return this.precipitationMinSelect.element(by.css('option:checked')).getText();
+    }
+
+    precipitationMaxSelectLastOption = function () {
+        this.precipitationMaxSelect.all(by.tagName('option')).last().click();
+    }
+
+    precipitationMaxSelectOption = function (option) {
+        this.precipitationMaxSelect.sendKeys(option);
+    }
+
+    getPrecipitationMaxSelect = function () {
+        return this.precipitationMaxSelect;
+    }
+
+    getPrecipitationMaxSelectedOption = function () {
+        return this.precipitationMaxSelect.element(by.css('option:checked')).getText();
+    }
+
     save() {
         this.saveButton.click();
     }

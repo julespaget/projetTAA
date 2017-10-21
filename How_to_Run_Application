@@ -1,0 +1,10 @@
+Commande pour lancer la bdd :
+
+docker-compose -f src/main/docker/mysql.yml up
+ ( si déja ouverte, faire :  sudo service mysql stop )
+
+Lancer le projet :
+	- lancer la bdd
+	- mvn
+	- npm start
+

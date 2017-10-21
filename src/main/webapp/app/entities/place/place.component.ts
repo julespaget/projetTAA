@@ -39,6 +39,7 @@ places: Place[];
             this.currentAccount = account;
         });
         this.registerChangeInPlaces();
+        //this.placeService.find(this.)
     }
 
     ngOnDestroy() {

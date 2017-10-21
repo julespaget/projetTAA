@@ -34,7 +34,7 @@ import {LocComponent} from "./entities/location/location.component";
         WeekandgoHomeModule,
         WeekandgoAdminModule,
         WeekandgoAccountModule,
-        WeekandgoEntityModule,
+        WeekandgoEntityModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

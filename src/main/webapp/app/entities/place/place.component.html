@@ -4,8 +4,8 @@
         <button class="btn btn-primary float-right jh-create-entity create-place" [routerLink]="['/', { outlets: { popup: ['place-new'] } }]">
             <span class="fa fa-plus"></span>
             <span >
-            Create new Place
-            </span>
+                                Create new Place
+                                </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
@@ -16,11 +16,11 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span>ID</span></th>
-            <th><span>Nom</span></th>
-            <th><span>Location</span></th>
-            <th><span>Weather</span></th>
-            <th></th>
+                <th><span>ID</span></th>
+                <th><span>Nom</span></th>
+                <th><span>Location</span></th>
+                <th><span>Weather</span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -37,6 +37,7 @@
                         <a [routerLink]="['../weather', place.weatherId  ]" >{{place.weatherId}}</a>
                     </div>
                 </td>
+
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

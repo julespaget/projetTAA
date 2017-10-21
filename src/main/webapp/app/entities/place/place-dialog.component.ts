@@ -52,6 +52,8 @@ export class PlaceDialogComponent implements OnInit {
                         .find(this.place.locationId)
                         .subscribe((subRes: Location) => {
                             this.locations = [subRes].concat(res.json);
+                           /* locations.place.locationId
+                            initmap(this.locations.find(this.place.locationId).latitude,this.locations.find(this.place.locationId).longitude) ;*/
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));
                 }
             }, (res: ResponseWrapper) => this.onError(res.json));

@@ -31,9 +31,21 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+    /*    function addMapsScript() {
+            if (!document.querySelectorAll(`[src="${googleMapsUrl}"]`).length) {
+                document.body.appendChild(Object.assign(
+                    document.createElement('script'), {
+                        type: 'text/javascript',
+                        src: googleMapsUrl,
+                        onload: () => doMapInitLogic()
+                    }));
+            } else {
+                this.doMapInitLogic();
+            }
+        }*/
+
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
-
             console.log("on arrie sur la requete !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             //lancemen tscip
             /*this.http.get(`${this.resourceUrl}/${this.place.locationId}`).map((value: Response, index: number) => {

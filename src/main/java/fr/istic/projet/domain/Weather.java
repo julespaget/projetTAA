@@ -209,6 +209,7 @@ public class Weather implements Serializable {
             ", clouds='" + getClouds() + "'" +
             ", pressure='" + getPressure() + "'" +
             ", humidity='" + getHumidity() + "'" +
+            ", precipitation='" + (getPrecipitation() != null?getPrecipitation().toString():"null") + "'" +
             "}";
     }
 }

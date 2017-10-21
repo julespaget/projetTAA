@@ -1,6 +1,11 @@
 package fr.istic.projet.service.util;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import fr.istic.projet.domain.Weather;
+import fr.istic.projet.factories.WeatherFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +29,9 @@ public class WeatherCollector {
             InputStream response = connection.getInputStream();
             try (Scanner scanner = new Scanner(response)) {
                 String responseBody = scanner.useDelimiter("\\A").next();
-                System.out.println(responseBody);
+                JsonObject weatherObject = new JsonParser().parse(responseBody).getAsJsonObject();
+                JsonArray weatherArray = weatherObject.get("list").getAsJsonArray();
+                WeatherFactory.getFactory().createWeather(weatherArray.get(0).getAsJsonObject());
             }
         }
         catch (MalformedURLException e) {

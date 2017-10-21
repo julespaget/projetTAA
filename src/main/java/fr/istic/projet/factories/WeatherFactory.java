@@ -2,6 +2,7 @@ package fr.istic.projet.factories;
 
 import fr.istic.projet.domain.Weather;
 
+
 public class WeatherFactory {
 
     private static WeatherFactory _INSTANCE;
@@ -17,6 +18,6 @@ public class WeatherFactory {
     }
 
     public Weather createWeather(String weatherString){
-
+        return null;
     }
 }

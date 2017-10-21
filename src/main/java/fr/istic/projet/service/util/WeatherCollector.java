@@ -24,7 +24,7 @@ public class WeatherCollector {
             InputStream response = connection.getInputStream();
             try (Scanner scanner = new Scanner(response)) {
                 String responseBody = scanner.useDelimiter("\\A").next();
-
+                System.out.println(responseBody);
             }
         }
         catch (MalformedURLException e) {

@@ -46,9 +46,8 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
 
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
-            console.log("on arrie sur la requete !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            //lancemen tscip
->>>>>>> master
+            console.log('on arrie sur la requete !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+            // lancemen tscip
             /*this.http.get(`${this.resourceUrl}/${this.place.locationId}`).map((value: Response, index: number) => {
                 console.log("valeur de value :" + value + " valeur de l'index : " + index + "\n") ;
             });*/

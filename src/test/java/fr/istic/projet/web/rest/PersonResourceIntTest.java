@@ -60,6 +60,9 @@ public class PersonResourceIntTest {
     private static final ZonedDateTime DEFAULT_BIRTH_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_BIRTH_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
+    private static final Double DEFAULT_DISTANCE_MAX = 1D;
+    private static final Double UPDATED_DISTANCE_MAX = 2D;
+
     @Autowired
     private PersonRepository personRepository;
 
@@ -107,7 +110,8 @@ public class PersonResourceIntTest {
             .lastName(DEFAULT_LAST_NAME)
             .email(DEFAULT_EMAIL)
             .phoneNumber(DEFAULT_PHONE_NUMBER)
-            .birthDate(DEFAULT_BIRTH_DATE);
+            .birthDate(DEFAULT_BIRTH_DATE)
+            .distanceMax(DEFAULT_DISTANCE_MAX);
         return person;
     }
 
@@ -137,6 +141,7 @@ public class PersonResourceIntTest {
         assertThat(testPerson.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testPerson.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
         assertThat(testPerson.getBirthDate()).isEqualTo(DEFAULT_BIRTH_DATE);
+        assertThat(testPerson.getDistanceMax()).isEqualTo(DEFAULT_DISTANCE_MAX);
     }
 
     @Test
@@ -174,7 +179,8 @@ public class PersonResourceIntTest {
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.toString())))
-            .andExpect(jsonPath("$.[*].birthDate").value(hasItem(sameInstant(DEFAULT_BIRTH_DATE))));
+            .andExpect(jsonPath("$.[*].birthDate").value(hasItem(sameInstant(DEFAULT_BIRTH_DATE))))
+            .andExpect(jsonPath("$.[*].distanceMax").value(hasItem(DEFAULT_DISTANCE_MAX.doubleValue())));
     }
 
     @Test
@@ -192,7 +198,8 @@ public class PersonResourceIntTest {
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.toString()))
-            .andExpect(jsonPath("$.birthDate").value(sameInstant(DEFAULT_BIRTH_DATE)));
+            .andExpect(jsonPath("$.birthDate").value(sameInstant(DEFAULT_BIRTH_DATE)))
+            .andExpect(jsonPath("$.distanceMax").value(DEFAULT_DISTANCE_MAX.doubleValue()));
     }
 
     @Test
@@ -217,7 +224,8 @@ public class PersonResourceIntTest {
             .lastName(UPDATED_LAST_NAME)
             .email(UPDATED_EMAIL)
             .phoneNumber(UPDATED_PHONE_NUMBER)
-            .birthDate(UPDATED_BIRTH_DATE);
+            .birthDate(UPDATED_BIRTH_DATE)
+            .distanceMax(UPDATED_DISTANCE_MAX);
         PersonDTO personDTO = personMapper.toDto(updatedPerson);
 
         restPersonMockMvc.perform(put("/api/people")
@@ -234,6 +242,7 @@ public class PersonResourceIntTest {
         assertThat(testPerson.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testPerson.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
         assertThat(testPerson.getBirthDate()).isEqualTo(UPDATED_BIRTH_DATE);
+        assertThat(testPerson.getDistanceMax()).isEqualTo(UPDATED_DISTANCE_MAX);
     }
 
     @Test

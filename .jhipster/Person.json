@@ -36,11 +36,16 @@
         {
             "fieldName": "birthDate",
             "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "distanceMax",
+            "fieldType": "Double"
         }
     ],
     "changelogDate": "20171015122931",
     "entityTableName": "person",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl"
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
 }

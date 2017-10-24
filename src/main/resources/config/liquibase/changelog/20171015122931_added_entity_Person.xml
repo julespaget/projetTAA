@@ -42,6 +42,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="distance_max" type="double">
+                <constraints nullable="true" />
+            </column>
+
             <column name="current_place_id" type="bigint">
                 <constraints nullable="true" />
             </column>

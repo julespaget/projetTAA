@@ -45,6 +45,8 @@ describe('Person e2e test', () => {
         expect(personDialogPage.getPhoneNumberInput()).toMatch('phoneNumber');
         personDialogPage.setBirthDateInput(12310020012301);
         expect(personDialogPage.getBirthDateInput()).toMatch('2001-12-31T02:30');
+        personDialogPage.setDistanceMaxInput('5');
+        expect(personDialogPage.getDistanceMaxInput()).toMatch('5');
         personDialogPage.currentPlaceSelectLastOption();
         // personDialogPage.sportListSelectLastOption();
         personDialogPage.save();
@@ -78,6 +80,7 @@ export class PersonDialogPage {
     emailInput = element(by.css('input#field_email'));
     phoneNumberInput = element(by.css('input#field_phoneNumber'));
     birthDateInput = element(by.css('input#field_birthDate'));
+    distanceMaxInput = element(by.css('input#field_distanceMax'));
     currentPlaceSelect = element(by.css('select#field_currentPlace'));
     sportListSelect = element(by.css('select#field_sportList'));
 
@@ -123,6 +126,14 @@ export class PersonDialogPage {
 
     getBirthDateInput = function () {
         return this.birthDateInput.getAttribute('value');
+    }
+
+    setDistanceMaxInput = function (distanceMax) {
+        this.distanceMaxInput.sendKeys(distanceMax);
+    }
+
+    getDistanceMaxInput = function () {
+        return this.distanceMaxInput.getAttribute('value');
     }
 
     currentPlaceSelectLastOption = function () {

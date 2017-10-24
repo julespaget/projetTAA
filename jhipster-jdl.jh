@@ -17,7 +17,8 @@ entity Person {
 	lastName String,
 	email String,
 	phoneNumber String,
-	birthDate ZonedDateTime
+	birthDate ZonedDateTime,
+	distanceMax Double
 }
 
 entity Weather {

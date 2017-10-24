@@ -39,6 +39,9 @@ public class Person implements Serializable {
     @Column(name = "birth_date")
     private ZonedDateTime birthDate;
 
+    @Column(name = "distance_max")
+    private Double distanceMax;
+
     @ManyToOne
     private Place currentPlace;
 
@@ -123,6 +126,19 @@ public class Person implements Serializable {
         this.birthDate = birthDate;
     }
 
+    public Double getDistanceMax() {
+        return distanceMax;
+    }
+
+    public Person distanceMax(Double distanceMax) {
+        this.distanceMax = distanceMax;
+        return this;
+    }
+
+    public void setDistanceMax(Double distanceMax) {
+        this.distanceMax = distanceMax;
+    }
+
     public Place getCurrentPlace() {
         return currentPlace;
     }
@@ -191,6 +207,7 @@ public class Person implements Serializable {
             ", email='" + getEmail() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", birthDate='" + getBirthDate() + "'" +
+            ", distanceMax='" + getDistanceMax() + "'" +
             "}";
     }
 }

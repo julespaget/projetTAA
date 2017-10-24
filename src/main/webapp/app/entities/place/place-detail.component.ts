@@ -5,9 +5,9 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { Place } from './place.model';
 import { PlaceService } from './place.service';
-import {google} from "@agm/core/services/google-maps-types";
-import {Http, Response} from "@angular/http";
-import {SERVER_API_URL} from "../../app.constants";
+import {google} from '@agm/core/services/google-maps-types';
+import {Http, Response} from '@angular/http';
+import {SERVER_API_URL} from '../../app.constants';
 
 @Component({
     selector: 'jhi-place-detail',
@@ -16,8 +16,8 @@ import {SERVER_API_URL} from "../../app.constants";
 export class PlaceDetailComponent implements OnInit, OnDestroy {
 
     place: Place;
-    lat: number = 0 ;
-    lng: number = 0 ;
+    lat = 0 ;
+    lng = 0 ;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     private resourceUrl = SERVER_API_URL + 'api/locations';
@@ -48,21 +48,22 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
             this.load(params['id']);
             console.log("on arrie sur la requete !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             //lancemen tscip
+>>>>>>> master
             /*this.http.get(`${this.resourceUrl}/${this.place.locationId}`).map((value: Response, index: number) => {
                 console.log("valeur de value :" + value + " valeur de l'index : " + index + "\n") ;
             });*/
 
                 const point = {lat: -25.363, lng: 131.044};
-                var test = document.getElementById( 'map');
+                const test = document.getElementById( 'map');
                 console.log(test) ;
 
-                var map = new google.maps.Map(document.getElementById('map'), {
+                const map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 4,
                     center: point
                 });
-                var marker = new google.maps.Marker({
+                const marker = new google.maps.Marker({
                     position: point,
-                    map: map
+                    map
                 });
          });
         this.registerChangeInPlaces();

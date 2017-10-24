@@ -24,6 +24,8 @@ public class PersonDTO implements Serializable {
 
     private ZonedDateTime birthDate;
 
+    private Double distanceMax;
+
     private Long currentPlaceId;
 
     private Set<SportDTO> sportLists = new HashSet<>();
@@ -76,6 +78,14 @@ public class PersonDTO implements Serializable {
         this.birthDate = birthDate;
     }
 
+    public Double getDistanceMax() {
+        return distanceMax;
+    }
+
+    public void setDistanceMax(Double distanceMax) {
+        this.distanceMax = distanceMax;
+    }
+
     public Long getCurrentPlaceId() {
         return currentPlaceId;
     }
@@ -122,6 +132,7 @@ public class PersonDTO implements Serializable {
             ", email='" + getEmail() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", birthDate='" + getBirthDate() + "'" +
+            ", distanceMax='" + getDistanceMax() + "'" +
             "}";
     }
 }

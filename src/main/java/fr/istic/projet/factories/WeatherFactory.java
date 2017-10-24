@@ -23,7 +23,7 @@ public class WeatherFactory {
     }
 
     public Weather createWeather(JsonObject weatherJson){
-        System.out.println(weatherJson.toString());
+        //System.out.println(weatherJson.toString());
         Weather weather = new Weather();
         Date date = new Date(weatherJson.get("dt").getAsLong()*1000);
         weather.setDate(ZonedDateTime.ofInstant(date.toInstant(), ZoneId.of("GMT")));

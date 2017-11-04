@@ -24,9 +24,9 @@ public class PlacesCollector {
             JsonArray placesArray = new JsonParser().parse(cities).getAsJsonArray();
             Set<Place> placesSet = new HashSet<>();
             Place place;
-            for(JsonElement placeJson : placesArray){
+            for(JsonElement placeJson : placesArray) {
                 place = PlaceFactory.createPlace(placeJson.getAsJsonObject());
-                if(place != null) {
+                if (place != null) {
                     placesSet.add(place);
                 }
             }

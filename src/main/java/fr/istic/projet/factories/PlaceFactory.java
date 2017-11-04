@@ -15,7 +15,7 @@ public class PlaceFactory {
         double longitude = placeJson.get("lng").getAsDouble();
 
         if(country.equals("FR")){
-            System.out.println("latitude =" + latitude + " longitude =" + longitude);
+//            System.out.println("latitude =" + latitude + " longitude =" + longitude);
             place = new Place();
             place.setNom(name);
             location = new Location();

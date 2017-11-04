@@ -2,6 +2,7 @@ package fr.istic.projet.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import fr.istic.projet.service.PlaceService;
+import fr.istic.projet.tests.PlaceTest;
 import fr.istic.projet.web.rest.util.HeaderUtil;
 import fr.istic.projet.service.dto.PlaceDTO;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -84,6 +85,8 @@ public class PlaceResource {
     @Timed
     public List<PlaceDTO> getAllPlaces() {
         log.debug("REST request to get all Places");
+        PlaceTest placeTest = new PlaceTest();
+        placeTest.placeCollectionTest();
         return placeService.findAll();
         }
 

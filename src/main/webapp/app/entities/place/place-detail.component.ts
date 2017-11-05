@@ -25,24 +25,11 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
     constructor(
         private eventManager: JhiEventManager,
         private placeService: PlaceService,
-        private route: ActivatedRoute,
-        private http: Http
+        private route: ActivatedRoute
     ) {
     }
 
     ngOnInit() {
-    /*    function addMapsScript() {
-            if (!document.querySelectorAll(`[src="${googleMapsUrl}"]`).length) {
-                document.body.appendChild(Object.assign(
-                    document.createElement('script'), {
-                        type: 'text/javascript',
-                        src: googleMapsUrl,
-                        onload: () => doMapInitLogic()
-                    }));
-            } else {
-                this.doMapInitLogic();
-            }
-        }*/
 
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);

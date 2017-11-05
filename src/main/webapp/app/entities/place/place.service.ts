@@ -35,7 +35,6 @@ export class PlaceService {
             return this.convertItemFromServer(jsonResponse);
         });
     }
-
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)

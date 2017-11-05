@@ -24,6 +24,7 @@ import {
     ErrorComponent
 } from './layouts';
 import {LocComponent} from "./entities/location/location.component";
+import {WeekandgoApiMapsModule} from "./entities/place/api-maps/api-maps.module";
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import {LocComponent} from "./entities/location/location.component";
         WeekandgoHomeModule,
         WeekandgoAdminModule,
         WeekandgoAccountModule,
-        WeekandgoEntityModule
+        WeekandgoEntityModule,
+        WeekandgoApiMapsModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
